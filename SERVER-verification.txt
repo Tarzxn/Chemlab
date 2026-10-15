@@ -1,0 +1,18 @@
+test_all_production_modules_have_javascript_mime (test_server.ServerTests.test_all_production_modules_have_javascript_mime) ... ok
+test_assets_revalidate_after_deploy (test_server.ServerTests.test_assets_revalidate_after_deploy) ... ok
+test_blueprint_contains_correct_production_commands (test_server.ServerTests.test_blueprint_contains_correct_production_commands) ... ok
+test_gunicorn_uses_render_port_and_public_interface (test_server.ServerTests.test_gunicorn_uses_render_port_and_public_interface) ... ok
+test_gzip_preserves_content (test_server.ServerTests.test_gzip_preserves_content) ... ok
+test_head_matches_get_without_body (test_server.ServerTests.test_head_matches_get_without_body) ... ok
+test_healthcheck_is_ready (test_server.ServerTests.test_healthcheck_is_ready) ... ok
+test_missing_files_and_traversal_do_not_return_html (test_server.ServerTests.test_missing_files_and_traversal_do_not_return_html) ... ok
+test_non_get_methods_are_rejected (test_server.ServerTests.test_non_get_methods_are_rejected) ... ok
+test_offline_edition_is_downloadable (test_server.ServerTests.test_offline_edition_is_downloadable) ... ok
+test_original_catalogue_route_is_available (test_server.ServerTests.test_original_catalogue_route_is_available) ... ok
+test_production_entrypoint_is_wsgi_callable (test_server.ServerTests.test_production_entrypoint_is_wsgi_callable) ... ok
+test_styles_and_icon_are_available (test_server.ServerTests.test_styles_and_icon_are_available) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.115s
+
+OK

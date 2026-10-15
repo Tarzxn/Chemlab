@@ -1,2 +1,2 @@
-Flask>=3.0
-gunicorn>=22.0
+# Production server on Render/Linux. The app and local server use the standard library.
+gunicorn==26.2.0; sys_platform != "win32"

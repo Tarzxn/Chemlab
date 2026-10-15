@@ -1,0 +1,37 @@
+✔ offline bundle compiles with no external module imports (6.7052ms)
+✔ all six main screens render and all 18 practical views respond to control changes (89.0851ms)
+✔ dose, precipitate, filter, undo and restore use the same workspace inventory (26.105ms)
+✔ workspace validation rejects malformed quantities and untrusted indicator ids (12.258ms)
+✔ learn progress, notebook changes and quiz grading persist locally (17.9865ms)
+✔ equation and quantities forms execute their submitted calculations (19.0323ms)
+✔ modal forms and empty bench can recover by adding glassware (17.7898ms)
+✔ isotope, titre and repeat-result tools calculate from submitted inputs (15.6854ms)
+✔ a collected gas sample is available to the gas-test tool (14.7963ms)
+✔ catalogue has unique ids, 118 unique elements and corrected physical states (1.7848ms)
+✔ formula parser handles nesting and hydrates; rejects invalid input (1.3002ms)
+✔ equation balance verifies atom conservation across demanding reactions (0.7198ms)
+✔ charge-balanced salts and solubility exceptions (0.2466ms)
+✔ strong acid titration gives endpoint and excess-ion pH, not interpolated pH (6.648ms)
+✔ weak ethanoic acid and buffer are treated using equilibrium (0.7668ms)
+✔ iron reacts with dilute HCl and consumes limiting amount (0.3432ms)
+✔ nitric acid and copper do not fall into hydrogen-producing acid model (0.189ms)
+✔ carbonate acid reaction respects molar ratios, physical state and gas volume (0.2922ms)
+✔ metal displacement changes inventories and cannot replay on transfer (0.5523ms)
+✔ NaOH produces copper hydroxide and filtration preserves quantities (0.3455ms)
+✔ silver halide and lead sulfate precipitations are balanced (0.3766ms)
+✔ peroxide catalyst is unchanged; oxygen is stoichiometric (0.3285ms)
+✔ ammonium test needs heating and forms ammonia (0.3599ms)
+✔ input guards reject overflow, negative quantities and invalid transfers (0.3134ms)
+✔ all 18 practicals have functioning defaults and finite chart data (13.1969ms)
+✔ practical predictions obey limits and catalyst invariance (0.4073ms)
+✔ Group 1 metals react with water, consume metal and generate alkaline hydroxide (0.277ms)
+✔ evaporation concentrates salts, leaves dry residue and permits redissolving (0.7361ms)
+✔ acid dissolves a precipitated hydroxide after formation (0.5111ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 29
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 340.7941
