@@ -1,0 +1,34 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {newSandbox,normaliseSandbox,moveLabObject,tickSandbox,nearestVessel,sandboxStageHTML,fitSandbox,zoomSandbox,attachSandbox} from '../dist/sandbox.js';
+import {makeVessel,dose} from '../dist/chemistry.js';
+import {chemicals,elements} from '../dist/data.js';
+test('legacy workspaces receive stable object positions and zoom bounds',()=>{const state={vessels:[makeVessel(1),makeVessel(2)],sandbox:{zoom:1e10,items:[{id:1,kind:'bad',x:'invalid'}]}};normaliseSandbox(state);assert.equal(state.sandbox.zoom,.8);assert.equal(state.sandbox.items.length,0);assert.equal(state.vessels[1].x,460);});
+test('apparatus drag clamps positions to world bounds',()=>{const state={vessels:[makeVessel(1)],sandbox:newSandbox()};normaliseSandbox(state);moveLabObject(state,'vessel',1,-20,10000);assert.equal(state.vessels[0].x,0);assert.equal(state.vessels[0].y,760);});
+test('connected burners heat over time and obey the liquid temperature cap',()=>{const state={vessels:[makeVessel(1)],sandbox:newSandbox()};dose(state.vessels[0],chemicals.find(c=>c.id==='water'),20,.1,elements);state.sandbox.items.push({id:1,kind:'burner',on:true,targetId:1});assert.ok(tickSandbox(state,10));assert.equal(state.vessels[0].temp,50);tickSandbox(state,100);assert.equal(state.vessels[0].temp,100);});
+test('stopwatch pauses without changing elapsed time',()=>{const state={vessels:[],sandbox:newSandbox()};state.sandbox.items.push({id:1,kind:'stopwatch',on:true,elapsed:0});tickSandbox(state,5);assert.equal(state.sandbox.items[0].elapsed,5);state.sandbox.items[0].on=false;tickSandbox(state,20);assert.equal(state.sandbox.items[0].elapsed,5);});
+test('burette proximity requires a receiver below the tip area',()=>{const state={vessels:[{...makeVessel(1),x:100,y:320},{...makeVessel(2),x:500,y:50}],sandbox:newSandbox()};assert.equal(nearestVessel(state,{kind:'burette',x:130,y:80}).id,1);assert.equal(nearestVessel(state,{kind:'burette',x:1000,y:80}),null);});
+test('gas syringe and balance are rendered from the chemistry inventory',()=>{const state={vessels:[makeVessel(1)],sandbox:newSandbox()};state.vessels[0].gas={H2:.002};state.sandbox.items.push({id:1,kind:'syringe',x:600,y:200,targetId:1},{id:2,kind:'balance',x:600,y:400,targetId:1});const html=sandboxStageHTML(state,elements);assert.ok(html.includes('48 / 100 mL'));assert.ok(html.includes('Solid sample mass'));});
+test('centre scene fits an ordinary pair of vessels into a narrow viewport',()=>{const state={vessels:[makeVessel(1),makeVessel(2)],sandbox:newSandbox()};normaliseSandbox(state);fitSandbox(state,340,550);for(const v of state.vessels){assert.ok(v.x*state.sandbox.zoom+state.sandbox.panX>=0);assert.ok((v.x+160)*state.sandbox.zoom+state.sandbox.panX<=340);}});
+test('zoom preserves the world point under the viewport centre',()=>{const state={vessels:[],sandbox:newSandbox()},x=(300-state.sandbox.panX)/state.sandbox.zoom,y=(325-state.sandbox.panY)/state.sandbox.zoom;zoomSandbox(state,1.15,600,650);assert.ok(Math.abs((300-state.sandbox.panX)/state.sandbox.zoom-x)<1e-8);assert.ok(Math.abs((325-state.sandbox.panY)/state.sandbox.zoom-y)<1e-8);});
+
+async function withPointerAdapter(run){
+ const original=globalThis.document,state={vessels:[makeVessel(1)],sandbox:newSandbox()};normaliseSandbox(state);
+ const events={},captured=new Set(),calls={checkpoints:0,renders:0,saves:0,focus:0,additions:[],doses:[]};
+ const object={dataset:{kind:'vessel',object:'1'},style:{},closest(selector){return ['.lab-object','.lab-vessel'].includes(selector)?this:null;},focus(){calls.focus++;}};
+ const view={addEventListener:(name,fn)=>events[name]=fn,classList:{add(){},remove(){}},setPointerCapture:id=>captured.add(id),hasPointerCapture:id=>captured.has(id),releasePointerCapture:id=>captured.delete(id),getBoundingClientRect:()=>({left:10,top:20})};
+ const world={querySelectorAll:()=>[object]};
+ globalThis.document={querySelector:selector=>selector==='#sandbox-viewport'?view:selector==='#sandbox-world'?world:selector.startsWith('[data-kind=')?object:null};
+ attachSandbox(state,{save:()=>calls.saves++,checkpoint:()=>calls.checkpoints++,render:()=>calls.renders++,onDose:id=>calls.doses.push(id),onAddReagent:(...args)=>calls.additions.push(args),onSelect(){}});
+ try{await run({state,events,captured,calls,object});}finally{if(original===undefined)delete globalThis.document;else globalThis.document=original;}
+}
+test('tap preserves the object click target while an actual drag captures the pointer',async()=>withPointerAdapter(async({state,events,captured,calls,object})=>{
+ const down={button:0,target:object,clientX:100,clientY:100,pointerId:7};events.pointerdown(down);assert.equal(captured.size,0);events.pointerup(down);assert.equal(calls.renders,0);
+ events.pointerdown(down);events.pointermove({...down,clientX:140});assert.ok(captured.has(7));assert.equal(calls.checkpoints,1);assert.equal(state.vessels[0].x,310);events.pointerup({...down,clientX:140});assert.equal(captured.size,0);let prevented=false;events.click({preventDefault:()=>prevented=true,stopPropagation(){}});assert.ok(prevented);await new Promise(resolve=>setTimeout(resolve,5));assert.equal(calls.saves,1);assert.equal(calls.renders,1);
+}));
+test('dropping apparatus over a vessel places equipment while a reagent doses that vessel',async()=>withPointerAdapter(({events,calls,object})=>{
+ const drop=token=>({preventDefault(){},target:object,clientX:250,clientY:240,dataTransfer:{getData:()=>token}});events.drop(drop('apparatus:burner'));assert.equal(calls.additions[0][0],'apparatus:burner');assert.equal(calls.additions[0][1],null);assert.equal(calls.additions[0][2].x,350);assert.equal(calls.doses.length,0);events.drop(drop('hcl'));assert.deepEqual(calls.doses,['hcl']);
+}));
+test('arrow placement retains focus after rendering so repeated key presses work',async()=>withPointerAdapter(({state,events,calls,object})=>{
+ events.keydown({target:object,key:'ArrowRight',shiftKey:true,preventDefault(){}});assert.equal(state.vessels[0].x,300);assert.equal(calls.focus,1);assert.equal(calls.renders,1);
+}));

@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: chemlab
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m gunicorn app:app
+    healthCheckPath: /healthz
+    envVars:
+      - key: GITHUB_TOKEN
+        sync: false
+      - key: GITHUB_GIST_ID
+        sync: false
+      - key: CHEMLAB_GIST_FILENAME
+        value: chemlab_users.json
+      - key: CHEMLAB_SESSION_DAYS
+        value: "30"
+      - key: PYTHONUNBUFFERED
+        value: "1"

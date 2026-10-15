@@ -1,12 +1,12 @@
-# Chemlab Studio 2.1 — Render edition
+# Chemlab Studio 2.2 — Render edition
 
-**Deploying to Render? Start with [RENDER.md](RENDER.md).** This edition restores the production `app:app` entry point, public port binding, Gunicorn dependency and Render Blueprint. It also rebuilds the interface with a larger bench, consistent vector icons and more readable typography.
+**Deploying to Render? Start with [RENDER.md](RENDER.md).** This edition adds RevisionCore-style sign-up and login with **separate Chemlab accounts**, plus a freely arranged sandbox bench. It retains the practicals, revision, calculations and translucent interface from the Render rebuild.
 
 A substantial rebuild of the supplied Chemlab project for Edexcel International GCSE Chemistry, linear **4CH1**, with an Apple-inspired translucent interface. Independent educational software; not affiliated with Apple or Pearson.
 
 ## Open it
 
-**Double-click `dist/Chemlab.html`.** It contains the complete app, styling and data. No installation, API key, server or internet connection is required. Keep using the same browser and file location for consistent local storage. Use **Settings → Export workspace** to keep a backup or move between devices, browsers, the offline app and a hosted copy.
+**Double-click `dist/Chemlab.html`.** It contains the complete app, styling and data. Choose **Open offline lab** to use a guest workspace. No installation, API key, server or internet connection is required for offline chemistry; accounts require the Python server. Keep using the same browser and file location for consistent local storage. Use **Settings → Export workspace** to keep a backup or move between devices, browsers, the offline app and a hosted copy.
 
 To run a local web server, use Python:
 
@@ -14,18 +14,20 @@ To run a local web server, use Python:
 python app.py
 ```
 
-Open `http://127.0.0.1:5050`. The local server uses only the Python standard library. Render uses Gunicorn with the commands in [RENDER.md](RENDER.md). Chemistry runs in the browser; the old `/api/react` endpoint is not used by this app.
+Open `http://127.0.0.1:5050`. The local server uses only the Python standard library and creates its own ignored `data/chemlab_users.json` account file when you sign up. Render uses Gunicorn and durable GitHub Gist account storage with the settings in [RENDER.md](RENDER.md). Chemistry runs in the browser; the old `/api/react` endpoint is not used by this app.
 
 ## What is included
 
-- **Virtual bench:** 122 reagent entries, searchable catalogue, click or drag to dose, measured liquid volumes and concentrations, solid masses, eight vessels, four glassware shapes, capacity checks, named products, balanced equations with states, limiting amounts, observations, gas collection and gas tests.
+- **Sandbox bench:** freely position up to 24 vessels and 30 apparatus items; pan, zoom, centre the scene, move objects by pointer or keyboard, and save their arrangement. Search 122 reagents; drag a reagent onto a vessel to measure a dose, or into empty space to create a new beaker. Four glassware shapes retain capacity checks, named products, balanced equations, limiting amounts, observations and gas tests.
+- **Connected apparatus:** load a 50 mL burette and dispense 0.1, 1 or 5 mL into a receiver; mount it on a movable stand. Link burners for heating over time, a gas syringe for cumulative model gas, a thermometer for live temperature, a balance for solid sample mass, and a filter funnel for separation. Start, pause and reset stopwatches. Apparatus controls explain each model.
+- **Separate accounts:** username/password sign-up, sign-in, restored sessions and sign-out follow RevisionCore’s system. Chemlab has its own cookie and account file. Passwords use salted scrypt hashes; only session-token hashes are stored. Render account persistence uses GitHub Gist.
 - **Functional operations:** controlled heating, stirred-mixture transfer, filtration with residue and filtrate, water evaporation, dry salt residue and redissolving, crystal recovery, rename/remove/empty, history, undo and notebook capture.
 - **18 practical workspaces:** all 12 explicitly named practical investigations in 4CH1 plus titration, qualitative analysis, flame tests, equilibrium, particles and organic reactions. Live controls, assumptions, methods, variables, graphs where appropriate, pinned graph comparisons, recorded trials, CSV downloads and notebook reports.
 - **Course-wide revision:** 34 original topic summaries covering the four strands, retrieval questions, flashcards, ten-question practice sessions, explanations and device-local progress.
 - **118-element periodic table:** search, family filtering, atomic data and first-20 shell configurations.
 - **Calculations:** equation balancing, hydrate formula masses, percentage composition, moles, concentrations, gas volumes, yields, calorimetry, enthalpy, empirical ratios, Rf, bond energies, isotope averages, titration concentrations and repeated-result means/spread. A bonding viewer illustrates single, double and triple covalent bonds and two ionic examples.
-- **Notebook and persistence:** editable entries, autosave, plain-text export, printing, workspace JSON backup and validated restore, including practical input settings and trial records.
-- **Interface:** translucent panels, original SVG glassware, responsive navigation, dark mode, keyboard controls, visible focus, labelled fields and reduced-motion support. No external fonts, analytics or application data services.
+- **Notebook and persistence:** editable entries, autosave, plain-text export, printing, workspace JSON backup and validated restore, including apparatus positions, practical input settings and trials. Workspaces save separately for each username in this browser; account storage holds credentials and sessions, not experiment data. Signing in on another device does not sync a workspace. Export/import to move it. Existing guest saves remain in the offline guest workspace and are not automatically copied into a new account.
+- **Interface:** translucent panels, original SVG glassware, responsive navigation, dark mode, keyboard controls, visible focus, labelled fields and reduced-motion support. No external fonts or analytics. Hosted authentication uses the configured GitHub Gist service.
 
 ## Practical coverage
 
@@ -58,15 +60,16 @@ Rate constants, visual movement, the synthetic model-solute curve, fixed decompo
 
 ## Source and checks
 
-`dist/` is the complete static website. `chemistry.js` contains the reaction engine; `simulations.js` contains the practical calculations; `curriculum.js` contains the educational material; `app.js` controls the interface. `data.js` includes the corrected and extended original catalogue and periodic data. No third-party JavaScript libraries are required.
+`dist/` is the complete static website. `chemistry.js` contains the reaction engine; `simulations.js` contains the practical calculations; `curriculum.js` contains the educational material; `app.js` controls the interface. `data.js` includes the corrected and extended original catalogue and periodic data. `sandbox.js` contains the canvas and apparatus models; `auth-ui.js` contains the account screens; `auth.py` provides authentication and account persistence. No third-party JavaScript libraries are required.
 
 ```sh
 node build-offline.mjs
 npm test
+python -m unittest discover -s tests -p "test_*.py" -v
 ```
 
 The build assembles `dist/Chemlab.html` from those modules without installing a bundler. Tests check chemistry, quantity limits, transfers, filtration, evaporation, pH, formula parsing, practical calculations and UI handlers with an offline DOM adapter. They also compile the actual offline bundle. These adapter tests **do not verify real browser layout, rendering or browser-native behaviours**.
 
-Browser preview access was declined by the permission gate during this session, so desktop/mobile visual QA, real drag-and-drop, download dialogs and native file-picker behaviour remain unverified. The stylesheet includes responsive breakpoints and reduced-motion handling, but they have not been visually inspected here. See `VERIFICATION.md` for the checks completed. The Render edition additionally has 13 WSGI/HTTP and deployment-configuration checks; it has not been deployed in a Render account from this session.
+Browser preview access was declined by the permission gate during this session, so desktop/mobile visual QA, real drag-and-drop, download dialogs and native file-picker behaviour remain unverified. The stylesheet includes responsive breakpoints and reduced-motion handling, but they have not been visually inspected here. See `VERIFICATION.md` for the checks completed. The complete suite has 79 passing checks: 49 JavaScript and 30 Python checks. Authentication, per-user workspace isolation, sandbox interactions and deployment configuration are covered. It has not been deployed in a Render account or connected to a live GitHub Gist from this session.
 
 The original ZIP remains untouched at its supplied location. No original workspace-save import compatibility is asserted; version 2 saves use a different inventory structure.

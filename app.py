@@ -9,13 +9,16 @@ import hashlib
 import json
 import mimetypes
 import os
+from http import HTTPStatus
 from pathlib import Path
 from socketserver import ThreadingMixIn
 from urllib.parse import unquote
 from wsgiref.simple_server import WSGIServer, make_server
+from auth import AccountStore, auth_request
 
 DIST = Path(__file__).resolve().parent / "dist"
-VERSION = "2.1.0"
+VERSION = "2.2.0"
+ACCOUNTS = AccountStore()
 TYPES = {".js": "text/javascript; charset=utf-8", ".css": "text/css; charset=utf-8", ".html": "text/html; charset=utf-8", ".svg": "image/svg+xml", ".json": "application/json; charset=utf-8"}
 SECURITY_HEADERS = [
     ("X-Content-Type-Options", "nosniff"),
@@ -34,6 +37,10 @@ def app(environ, start_response):
         start_response(status, SECURITY_HEADERS + headers + [("Content-Length", str(len(body)))])
         return [b"" if method == "HEAD" else body]
 
+    auth_result = auth_request(environ, ACCOUNTS)
+    if auth_result is not None:
+        status, data, headers = auth_result
+        return reply(f"{status} {HTTPStatus(status).phrase}", json.dumps(data).encode(), headers + [("Content-Type", "application/json"), ("Cache-Control", "no-store")])
     if method not in {"GET", "HEAD"}:
         return reply("405 Method Not Allowed", b"Method not allowed", [("Allow", "GET, HEAD"), ("Content-Type", "text/plain; charset=utf-8")])
     try:
