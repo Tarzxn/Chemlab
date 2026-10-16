@@ -1,7 +1,7 @@
 """Portable WSGI app. Production: python -m gunicorn app:app.
 
 The app uses Python's standard library. Gunicorn is installed on Render.
-Chemistry and learning state run in the browser, without server-disk storage.
+The original lab uses its supplied Python reaction engine. Study tools run in the browser.
 """
 import argparse
 import gzip
@@ -15,9 +15,10 @@ from socketserver import ThreadingMixIn
 from urllib.parse import unquote
 from wsgiref.simple_server import WSGIServer, make_server
 from auth import AccountStore, auth_request
+from original_api import original_request
 
 DIST = Path(__file__).resolve().parent / "dist"
-VERSION = "2.3.0"
+VERSION = "2.4.0"
 ACCOUNTS = AccountStore()
 TYPES = {".js": "text/javascript; charset=utf-8", ".css": "text/css; charset=utf-8", ".html": "text/html; charset=utf-8", ".svg": "image/svg+xml", ".json": "application/json; charset=utf-8"}
 SECURITY_HEADERS = [
@@ -29,18 +30,25 @@ SECURITY_HEADERS = [
 
 def app(environ, start_response):
     method = environ.get("REQUEST_METHOD", "GET")
+    security = SECURITY_HEADERS
+    if environ.get('PATH_INFO', '') in {'/original-lab', '/original-lab/'} or environ.get('PATH_INFO', '').startswith('/original-lab/'):
+        security = [(key, value.replace("script-src 'self';", "script-src 'self' 'unsafe-inline';") if key == 'Content-Security-Policy' else value) for key, value in SECURITY_HEADERS]
 
     def reply(status, body=b"", headers=()):
         headers = list(headers)
         if not any(key.lower() == "content-type" for key, _ in headers):
             headers.append(("Content-Type", "text/plain; charset=utf-8"))
-        start_response(status, SECURITY_HEADERS + headers + [("Content-Length", str(len(body)))])
+        start_response(status, security + headers + [("Content-Length", str(len(body)))])
         return [b"" if method == "HEAD" else body]
 
     auth_result = auth_request(environ, ACCOUNTS)
     if auth_result is not None:
         status, data, headers = auth_result
         return reply(f"{status} {HTTPStatus(status).phrase}", json.dumps(data).encode(), headers + [("Content-Type", "application/json"), ("Cache-Control", "no-store")])
+    original_result = original_request(environ)
+    if original_result is not None:
+        status, body, headers = original_result
+        return reply(f"{status} {HTTPStatus(status).phrase}", body, headers)
     if method not in {"GET", "HEAD"}:
         return reply("405 Method Not Allowed", b"Method not allowed", [("Allow", "GET, HEAD"), ("Content-Type", "text/plain; charset=utf-8")])
     try:
@@ -50,8 +58,8 @@ def app(environ, start_response):
         if route in {"/healthz", "/health"}:
             body = json.dumps({"status": "ok", "app": "chemlab", "version": VERSION}).encode()
             return reply("200 OK", body, [("Content-Type", "application/json"), ("Cache-Control", "no-store")])
-        if route == "/api/chemicals":
-            route = "/chemicals.json"
+        if route in {'/original-lab', '/original-lab/'}:
+            route = '/original-lab/index.html'
         for prefix in ("/static/css/", "/static/js/"):
             if route.startswith(prefix):
                 route = "/" + route[len(prefix):]
@@ -63,7 +71,7 @@ def app(environ, start_response):
         etag = 'W/"' + hashlib.sha256(body).hexdigest()[:24] + '"'
         headers = [("Content-Type", TYPES.get(file.suffix, mimetypes.guess_type(file.name)[0] or "application/octet-stream")), ("Cache-Control", "no-cache"), ("ETag", etag), ("Vary", "Accept-Encoding")]
         if environ.get("HTTP_IF_NONE_MATCH") == etag:
-            start_response("304 Not Modified", SECURITY_HEADERS + [(key, value) for key, value in headers if key != "Content-Type"])
+            start_response("304 Not Modified", security + [(key, value) for key, value in headers if key != "Content-Type"])
             return []
         encodings = environ.get("HTTP_ACCEPT_ENCODING", "").replace(" ", "").split(",")
         if "gzip" in encodings and len(body) > 1024:

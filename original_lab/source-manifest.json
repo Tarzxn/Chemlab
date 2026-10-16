@@ -1,0 +1,25 @@
+{
+  "source": "Chemlab-main.zip",
+  "files": [
+    {
+      "archive_path": "Chemlab-main/reaction_engine.py",
+      "path": "original_lab/reaction_engine.py",
+      "sha256": "e9f9930ae3ad4cc5d8608b1537793453ac915676366648e98df584740f63f209"
+    },
+    {
+      "archive_path": "Chemlab-main/data/chemicals.json",
+      "path": "original_lab/data/chemicals.json",
+      "sha256": "103eae415513d3d249f7980bbbcdd5f40faedb5f01b6733d3e75eb6ba6c279c2"
+    },
+    {
+      "archive_path": "Chemlab-main/static/js/app.js",
+      "path": "dist/original-lab/app.js",
+      "sha256": "2129f57425f39a7f9f4bce3db83c9721fa105e1dbad5419725d77b5f85a538d6"
+    },
+    {
+      "archive_path": "Chemlab-main/static/css/style.css",
+      "path": "dist/original-lab/style.css",
+      "sha256": "9c35728fe381ac1530a5b3d2c58a72ff69c4e05ee383a684166772b3d4a6ba0b"
+    }
+  ]
+}

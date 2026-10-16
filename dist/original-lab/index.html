@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>ChemLab — Virtual Chemistry Lab</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="liquid-glass.css">
+</head>
+<body>
+
+<header>
+  <div class="brand"><span class="orb"></span>ChemLab</div>
+  <div class="searchbox">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input id="searchInput" placeholder="Search 100 chemicals…" />
+  </div>
+  <div class="cat-chip-row" id="catChipRow"></div>
+  <button class="iconbtn" id="toggleIslandBtn" title="Show temperature &amp; volume floating on each vessel">🌡️</button>
+  <button class="iconbtn" id="periodicBtn" title="Periodic Table">🧪</button>
+  <button class="iconbtn" id="historyBtn" title="History">🕓</button>
+  <button class="iconbtn" id="saveWorkspaceBtn" title="Save workspace (apparatus, volumes, temperatures &amp; notes)">💾</button>
+  <button class="iconbtn" id="openWorkspaceBtn" title="Open a previously saved workspace">📂</button>
+  <input type="file" id="workspaceFileInput" accept=".json,.txt" style="display:none;">
+  <button class="iconbtn" id="clearBenchBtn" title="Clear entire bench">🗑</button>
+  <button class="iconbtn" id="darkBtn" title="Toggle dark mode">🌙</button>
+</header>
+
+<div class="wrap">
+  <!-- LEFT SIDEBAR: chemicals / apparatus -->
+  <div class="shelf scroll-thin" id="shelf">
+    <div class="shelf-tabs">
+      <button class="shelf-tab active" data-shelf="chem">Chemicals</button>
+      <button class="shelf-tab" data-shelf="app">Apparatus</button>
+    </div>
+    <div id="chemShelfBody">
+      <h3>Store Cupboard <span class="count-badge" id="countBadge"></span></h3>
+      <div class="chem-grid" id="chemGrid"></div>
+    </div>
+    <div id="appShelfBody" style="display:none;">
+      <h3>Drag onto the bench</h3>
+      <div class="app-grid" id="appGrid"></div>
+    </div>
+  </div>
+
+  <!-- CENTER: sandbox bench -->
+  <div class="stage" id="stage">
+    <div class="partner-bar glass" id="partnerBar">
+      <div class="partner-avatar">🧑‍🔬</div>
+      <div class="partner-text" id="partnerText">Drag apparatus onto the bench, then drag chemicals into whatever you set up.</div>
+    </div>
+    <div class="bench-scroll scroll-thin" id="benchScroll">
+      <div class="bench" id="bench"></div>
+    </div>
+    <div class="bench-hint" id="benchHint">Bench is empty — drag a Beaker or Bunsen Burner in from the Apparatus tab to get started.</div>
+  </div>
+
+  <!-- RIGHT: info / notes -->
+  <div class="info scroll-thin" id="infoPanel">
+    <div class="info-tabs">
+      <button class="info-tab active" data-tab="reaction">Reaction Info</button>
+      <button class="info-tab" data-tab="notes">Lab Notes</button>
+    </div>
+    <div id="reactionTabBody">
+      <div class="vessel-summary" id="vesselSummary">
+        <div class="vessel-summary-empty" id="vesselSummaryEmpty">No vessel selected — tap one on the bench.</div>
+        <div class="vessel-summary-content" id="vesselSummaryContent" style="display:none;">
+          <div class="vs-main">
+            <div class="vs-label" id="vsLabel"></div>
+            <div class="vs-status" id="vsStatus"></div>
+            <div class="vessel-pills" id="vsPills"></div>
+          </div>
+          <div class="vs-side">
+            <span class="temp-badge" id="vsTemp">20°C</span>
+            <span class="vol-badge" id="vsVol">0 mL</span>
+          </div>
+        </div>
+      </div>
+      <div id="infoBody"><div class="info-empty">Tap a vessel on the bench, then mix chemicals into it to see products, equations, and observations here.</div></div>
+    </div>
+    <div id="notesTabBody" style="display:none;">
+      <textarea id="notesArea" placeholder="Write your lab notes here..."></textarea>
+      <div class="notes-actions">
+        <button class="btn primary" id="saveNotesBtn">Save Notes (.txt)</button>
+        <span class="notes-meta" id="notesMeta"></span>
+      </div>
+      <div class="notes-hint">Notes are also bundled into a full workspace save — use the 💾 button in the header to save apparatus, chemical volumes, temperatures, and these notes together, and 📂 to reopen a previous session.</div>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="bridge.js"></script>
+</body>
+</html>

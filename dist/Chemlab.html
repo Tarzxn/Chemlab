@@ -101,10 +101,33 @@ body.is-sandbox .page-heading{margin:22px 0}.is-sandbox .page-heading h1{font-si
 .dark .snap-point{background:#3a7c6250}
 @media(max-width:760px){.object-tools button{min-height:34px;min-width:34px}.snap-hint{font-size:10px}.bench-measures{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.bench-measures label{font-size:9px}}
 @media(max-width:540px){.bench-measures{grid-template-columns:1fr 1fr}}
+
+/* Liquid glass shell and a persistent, collapsible navigation rail. */
+.glass{background:var(--panel);background:linear-gradient(135deg,color-mix(in srgb,var(--panel) 92%,white 8%),var(--panel));border-color:#ffffffc9;box-shadow:0 14px 42px #334e7410,inset 0 1px 0 #ffffffed,inset 1px 0 0 #ffffff60;-webkit-backdrop-filter:blur(36px) saturate(180%);backdrop-filter:blur(36px) saturate(180%)}
+.sidebar{transition:transform .25s ease,opacity .2s ease,visibility .2s;overflow:hidden}
+.sidebar:after{content:'';position:absolute;inset:0;border-radius:inherit;background:linear-gradient(135deg,#ffffff45,transparent 28%,transparent 72%,#ffffff12);pointer-events:none}
+.shell{transition:margin-left .25s ease}
+.topbar{height:70px;margin-top:14px;padding:0 14px;border:1px solid #ffffffa6;border-radius:21px;background:linear-gradient(135deg,#ffffff91,#ffffff40);box-shadow:0 6px 25px #39557b07,inset 0 1px 0 #ffffffd4;-webkit-backdrop-filter:blur(32px) saturate(180%);backdrop-filter:blur(32px) saturate(180%)}
+.sidebar-toggle{flex-shrink:0;background:transparent;border-color:transparent;box-shadow:none}
+.sidebar-toggle svg{width:19px;height:19px}
+body.sidebar-hidden .sidebar{transform:translateX(calc(-100% - 35px));opacity:0;visibility:hidden;pointer-events:none}
+body.sidebar-hidden .shell{margin-left:24px}
+.original-lab-frame{display:block;width:100%;height:calc(100dvh - 110px);min-height:590px;border:1px solid #ffffffc4;border-radius:24px;background:var(--bg);box-shadow:0 18px 50px #39577810,inset 0 1px 0 white}
+#original-lab-view{padding-top:12px}
+.original-lab-notice{margin:25px 0;padding:35px;max-width:850px}
+.original-lab-notice h1{font-size:30px;margin-bottom:18px}
+.original-lab-notice p{font-size:14px;line-height:1.9;color:var(--muted)}
+.is-original-bench .footer{display:none}
+.dark .glass{border-color:#bdd9ff24;box-shadow:0 14px 42px #00000023,inset 0 1px 0 #ffffff20,inset 1px 0 0 #ffffff08}
+.dark .topbar{background:linear-gradient(135deg,#3349669c,#1c314980);border-color:#9fbcdc24;box-shadow:inset 0 1px 0 #ffffff17}
+.dark .original-lab-frame{border-color:#99b4d22b;box-shadow:0 18px 50px #00000020}
+@media(max-width:1050px){.topbar{height:65px}.original-lab-frame{height:calc(100dvh - 105px)}}
+@media(max-width:540px){.topbar{height:58px;margin-top:10px;padding:0 7px;border-radius:18px}.breadcrumbs{gap:6px}.breadcrumbs .divider{display:none}.top-actions{gap:4px}.top-actions .icon-btn{width:30px;height:32px}.top-actions #account-button{font-size:10px;padding:7px}.sidebar-toggle{width:31px}.original-lab-frame{height:calc(100dvh - 160px);min-height:500px;border-radius:20px}.original-lab-notice{padding:24px}.original-lab-notice h1{font-size:26px}body.sidebar-hidden .sidebar{transform:translateY(calc(100% + 20px))}body.sidebar-hidden .shell{margin-left:16px;padding-bottom:18px}body.sidebar-hidden .original-lab-frame{height:calc(100dvh - 88px)}}
+@supports not (backdrop-filter:blur(1px)){.glass,.topbar{background:var(--strong)}}
 </style></head>
 <body class="auth-locked"><section id="auth-root" class="auth-root" aria-label="Chemlab account"><div class="auth-loading"><span class="brand-icon">C</span><p>Opening your laboratory…</p></div></section><a class="skip" href="#main">Skip to content</a><div class="ambient a"></div><div class="ambient b"></div><div class="ambient c"></div>
-<aside class="sidebar glass"><a href="#bench" class="brand" aria-label="Chemlab home"><span class="brand-icon">C<span>↗</span></span><span>chemlab<span class="brand-dot">.</span></span></a><div class="workspace-label">EXPERIMENT. UNDERSTAND.</div><nav id="nav" aria-label="Main navigation"></nav><div class="sidebar-bottom"><div class="course"><span class="course-symbol">E</span><div>Edexcel International GCSE<small>Chemistry · 4CH1</small></div></div><button class="help-btn" data-act="help"><span>◉</span> A little guidance <kbd>?</kbd></button><div class="side-foot">Made for curious minds.</div></div></aside>
-<div class="shell"><header class="topbar"><div class="breadcrumbs"><span class="live-dot"></span><span id="crumb">Lab bench</span><span class="divider">/</span><span class="muted">Your space to experiment</span></div><div class="top-actions"><span id="save-status" class="save-status">Saved on this device</span><button class="icon-btn" data-act="theme" aria-label="Switch colour theme" title="Switch colour theme">◐</button><button class="icon-btn" data-act="settings" aria-label="Workspace settings" title="Workspace settings">⚙</button><button class="btn small subtle" id="account-button" type="button">Sign in</button><span class="avatar" title="Local learner profile">C</span></div></header><div id="inline-host"></div><div id="toast" class="toast" role="status" aria-live="polite"></div><main id="main" tabindex="-1"></main><footer class="footer"><span><span class="live-dot"></span> A space to think. A lab to discover.</span><button data-act="about">Models & curriculum</button><span>Chemlab Studio 2.3.0</span></footer></div>
+<aside class="sidebar glass" id="main-sidebar"><a href="#bench" class="brand" aria-label="Chemlab home"><span class="brand-icon">C<span>↗</span></span><span>chemlab<span class="brand-dot">.</span></span></a><div class="workspace-label">EXPERIMENT. UNDERSTAND.</div><nav id="nav" aria-label="Main navigation"></nav><div class="sidebar-bottom"><div class="course"><span class="course-symbol">E</span><div>Edexcel International GCSE<small>Chemistry · 4CH1</small></div></div><button class="help-btn" data-act="help"><span>◉</span> A little guidance <kbd>?</kbd></button><div class="side-foot">Made for curious minds.</div></div></aside>
+<div class="shell"><header class="topbar"><div class="breadcrumbs"><button class="icon-btn sidebar-toggle" id="sidebar-toggle" type="button" data-act="toggle-sidebar" aria-controls="main-sidebar" aria-expanded="true" aria-label="Hide navigation sidebar" title="Hide navigation sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="16" rx="4"/><path d="M9 4v16"/></svg></button><span class="live-dot"></span><span id="crumb">Lab bench</span><span class="divider">/</span><span class="muted">Your space to experiment</span></div><div class="top-actions"><span id="save-status" class="save-status">Saved on this device</span><button class="icon-btn" data-act="theme" aria-label="Switch colour theme" title="Switch colour theme">◐</button><button class="icon-btn" data-act="settings" aria-label="Workspace settings" title="Workspace settings">⚙</button><button class="btn small subtle" id="account-button" type="button">Sign in</button><span class="avatar" title="Local learner profile">C</span></div></header><div id="inline-host"></div><div id="toast" class="toast" role="status" aria-live="polite"></div><main id="main" tabindex="-1"><section id="original-lab-view"></section><section id="studio-view"></section></main><footer class="footer"><span><span class="live-dot"></span> A space to think. A lab to discover.</span><button data-act="about">Models & curriculum</button><span>Chemlab Studio 2.4.0</span></footer></div>
 <section id="dialog" class="inline-panel" hidden aria-label="Details"><div id="dialog-content"></div></section><input id="import-file" type="file" accept="application/json,.json" hidden><script type="module">/* Deterministic school-level chemistry. Amounts in mol, volumes in mL. */
 const cations={
  'Na+':['Na',1,'sodium'],'K+':['K',1,'potassium'],'Li+':['Li',1,'lithium'],'H+':['H',1,'hydrogen'],'NH4+':['NH4',1,'ammonium'],
@@ -539,7 +562,7 @@ function startAuth({onUser}){
  function show(message=''){
   document.body.classList.add('auth-locked');root.hidden=false;
   const signup=mode==='signup',offline=location.protocol==='file:';
-  root.innerHTML=`<div class="auth-layout"><div class="auth-story"><a class="brand" href="#bench"><span class="brand-icon">C<span>↗</span></span><span>chemlab<span class="brand-dot">.</span></span></a><div class="eyebrow">YOUR OWN LITTLE LABORATORY</div><h1>A little curiosity.<br>A world to discover.</h1><p>Set up your bench, follow a question, and see chemistry take shape. Your experiments and learning space, together.</p><div class="auth-points"><span>Personal workspace</span><span>Private account</span><span>Room to explore</span></div><div class="auth-molecule" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div></div><section class="auth-card glass" role="form" aria-label="${signup?'Create Chemlab account':'Sign in to Chemlab'}"><div class="auth-mark">C<span>↗</span></div><div class="eyebrow">${offline?'YOUR OFFLINE LAB':signup?'MAKE YOURSELF AT HOME':'WELCOME BACK'}</div><h2>${offline?'Explore offline.':signup?'Create your account.':'Sign in.'}</h2><p>${offline?'Accounts need the hosted Chemlab server. You can use the standalone lab offline on this device.':'Use your Chemlab account. These accounts are separate from RevisionCore.'}</p>${offline?'':`<label class="field" for="auth-username">Username<input id="auth-username" autocomplete="username" minlength="3" maxlength="32" spellcheck="false" autocapitalize="none"></label><label class="field" for="auth-password">Password<span class="auth-password-row"><input id="auth-password" type="password" autocomplete="${signup?'new-password':'current-password'}" minlength="8" maxlength="256"><button id="auth-show-password" type="button" aria-label="Show password">Show</button></span></label>${signup?'<label class="field" for="auth-confirm">Confirm password<input id="auth-confirm" type="password" autocomplete="new-password" maxlength="256"></label>':''}`}<p class="auth-error" id="auth-error" role="alert">${esc(message)}</p><button class="btn primary" id="auth-submit" type="button">${offline?'Open offline lab':signup?'Create account':'Sign in'} <span>→</span></button>${offline?'':`<p class="auth-switch">${signup?'Already have an account?':'New to Chemlab?'} <button id="auth-toggle" type="button">${signup?'Sign in':'Create an account'}</button></p>`}<div class="auth-footer">${offline?'Work stays in this browser. Export a backup to keep a copy.':'Your workspace saves on this device. Export a backup to take it with you.'}</div></section></div>`;
+  root.innerHTML=`<div class="auth-layout"><div class="auth-story"><a class="brand" href="#bench"><span class="brand-icon">C<span>↗</span></span><span>chemlab<span class="brand-dot">.</span></span></a><div class="eyebrow">YOUR OWN LITTLE LABORATORY</div><h1>A little curiosity.<br>A world to discover.</h1><p>Set up your bench, follow a question, and see chemistry take shape. Your experiments and learning space, together.</p><div class="auth-points"><span>Personal workspace</span><span>Private account</span><span>Room to explore</span></div><div class="auth-molecule" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div></div><section class="auth-card glass" role="form" aria-label="${signup?'Create Chemlab account':'Sign in to Chemlab'}"><div class="auth-mark">C<span>↗</span></div><div class="eyebrow">${offline?'YOUR OFFLINE LAB':signup?'MAKE YOURSELF AT HOME':'WELCOME BACK'}</div><h2>${offline?'Explore offline.':signup?'Create your account.':'Sign in.'}</h2><p>${offline?'Use the study tools offline on this device. The original chemistry bench and accounts need the Python server.':'Use your Chemlab account. These accounts are separate from RevisionCore.'}</p>${offline?'':`<label class="field" for="auth-username">Username<input id="auth-username" autocomplete="username" minlength="3" maxlength="32" spellcheck="false" autocapitalize="none"></label><label class="field" for="auth-password">Password<span class="auth-password-row"><input id="auth-password" type="password" autocomplete="${signup?'new-password':'current-password'}" minlength="8" maxlength="256"><button id="auth-show-password" type="button" aria-label="Show password">Show</button></span></label>${signup?'<label class="field" for="auth-confirm">Confirm password<input id="auth-confirm" type="password" autocomplete="new-password" maxlength="256"></label>':''}`}<p class="auth-error" id="auth-error" role="alert">${esc(message)}</p><button class="btn primary" id="auth-submit" type="button">${offline?'Open offline lab':signup?'Create account':'Sign in'} <span>→</span></button>${offline?'':`<p class="auth-switch">${signup?'Already have an account?':'New to Chemlab?'} <button id="auth-toggle" type="button">${signup?'Sign in':'Create an account'}</button></p>`}<div class="auth-footer">${offline?'Work stays in this browser. Export a backup to keep a copy.':'Your workspace saves on this device. Export a backup to take it with you.'}</div></section></div>`;
   root.querySelector('#auth-submit').onclick=offline?()=>unlock(null,true):submit;
   if(!offline){root.querySelector('#auth-toggle').onclick=()=>{mode=signup?'login':'signup';show();};root.querySelector('#auth-show-password').onclick=()=>{const field=root.querySelector('#auth-password'),button=root.querySelector('#auth-show-password');field.type=field.type==='password'?'text':'password';button.textContent=field.type==='password'?'Show':'Hide';button.setAttribute('aria-label',field.type==='password'?'Show password':'Hide password');};root.querySelector('.auth-card').onkeydown=e=>{if(e.key==='Enter'&&e.target.tagName==='INPUT'){e.preventDefault();submit();}};root.querySelector('#auth-username').focus();}
  }
@@ -571,219 +594,31 @@ function startAuth({onUser}){
  return {logout,show,check};
 }
 
-// Geometric ports and durable apparatus assemblies. No DOM or chemistry mutations.
-const labKey=(type,id)=>(type==='vessel'?'v:':'a:')+id;
-function labObject(state,key){const [type,id]=String(key).split(':');return (type==='v'?state.vessels:state.sandbox.items).find(o=>o.id===Number(id));}
-const labRoles=new Set(['heat','clamp','receiver','probe','gas','weigh','funnel']);
-function assemblyCycle(links,child,parent){let key=parent;const seen=new Set([child]);while(key){if(seen.has(key))return true;seen.add(key);key=links.find(l=>l.child===key)?.parent;}return false;}
-function normaliseAssembly(state){
- const links=[];
- for(const link of Array.isArray(state.sandbox.attachments)?state.sandbox.attachments.slice(0,60):[]){
-  if(!link||!labRoles.has(link.role)||!/^([av]):[1-9]\d*$/.test(link.child)||!/^([av]):[1-9]\d*$/.test(link.parent)||!labObject(state,link.child)||!labObject(state,link.parent)||links.some(l=>l.child===link.child||l.parent===link.parent&&l.role===link.role)||assemblyCycle(links,link.child,link.parent))continue;
-  const child=labObject(state,link.child),parent=labObject(state,link.parent);
-  if(!validAssemblyRole(link.role,link.child,link.parent,child,parent))continue;
-  links.push({child:link.child,parent:link.parent,role:link.role,dx:child.x-parent.x,dy:child.y-parent.y});
- }
- state.sandbox.attachments=links;return links;
+// Shared integration validation. The original lab's reaction rules stay in Python.
+function validateOriginalWorkspace(data){
+ if(!data||data.version!==1)throw Error('Not an original ChemLab workspace.');
+ const number=(v,min,max,fallback)=>typeof v==='number'&&Number.isFinite(v)&&v>=min&&v<=max?v:fallback;
+ const text=(v,max,fallback='')=>typeof v==='string'?v.slice(0,max):fallback;
+ const label=(v,max,fallback='')=>text(v,max,fallback).replace(/[<>&]/g,'');
+ const list=(value,max)=>Array.isArray(value)?value.slice(0,max):[];
+ const chemical=id=>typeof id==='string'&&/^[a-zA-Z0-9_-]{1,64}$/.test(id)?id:null;
+ const position=o=>({x:number(o.x,-500,100000,100),y:number(o.y,-500,100000,100)});
+ const clean={version:1,savedAt:text(data.savedAt,80),notes:text(data.notes,100000),vessels:[],burners:[],burettes:[],decor:[],counters:{}};
+ clean.vessels=list(data.vessels,100).filter(v=>v&&['beaker','flask','testtube','evapdish'].includes(v.shape)).map((v,i)=>({id:/^v\d+$/.test(v.id)?v.id:'v'+(i+1),shape:v.shape,...position(v),temp:number(v.temp,0,1000,20),label:label(v.label,100,'Vessel'),contents:list(v.contents,150).filter(c=>c&&chemical(c.id)&&number(c.ml,0,1e8,null)!==null).map(c=>({id:c.id,ml:c.ml})),dryResidue:v.dryResidue&&/^#[0-9a-f]{6}$/i.test(v.dryResidue.color)?{color:v.dryResidue.color,name:label(v.dryResidue.name,200)}:null}));
+ clean.burners=list(data.burners,50).filter(Boolean).map((b,i)=>({id:'b'+(i+1),...position(b),lit:Boolean(b.lit)}));
+ clean.burettes=list(data.burettes,50).filter(Boolean).map((b,i)=>({id:'br'+(i+1),...position(b),loadedId:chemical(b.loadedId),remainingMl:number(b.remainingMl,0,50,0),attachedVesselId:clean.vessels.some(v=>v.id===b.attachedVesselId)?b.attachedVesselId:null}));
+ clean.decor=list(data.decor,100).filter(d=>d&&['tripod','stand','rack','funnel'].includes(d.kind)).map((d,i)=>({id:'d'+(i+1),kind:d.kind,...position(d)}));
+ for(const key of ['vesselCounter','burnerCounter','buretteCounter','decorCounter'])clean.counters[key]=number(data.counters?.[key],0,100000,0);
+ return clean;
 }
-function validAssemblyRole(role,ck,pk,child,parent){
- return role==='clamp'?ck.startsWith('a:')&&pk.startsWith('a:')&&child.kind==='burette'&&parent.kind==='stand':
-  ['heat','weigh','receiver'].includes(role)?ck.startsWith('v:')&&pk.startsWith('a:')&&parent.kind===({heat:'burner',weigh:'balance',receiver:'burette'}[role]):
-  ck.startsWith('a:')&&pk.startsWith('v:')&&child.kind===({probe:'thermometer',gas:'syringe',funnel:'funnel'}[role]);
-}
-function clearAssemblyLink(state,link){
- const child=labObject(state,link.child),parent=labObject(state,link.parent);
- if(link.role==='clamp'&&parent)parent.mountedId=null;
- else if(['heat','weigh','receiver'].includes(link.role)&&parent)parent.targetId=null;
- else if(child)child.targetId=null;
-}
-function detachLabObject(state,type,id,all=false){
- const key=labKey(type,id),links=state.sandbox.attachments||[];
- state.sandbox.attachments=links.filter(link=>{const remove=link.child===key||(all&&link.parent===key);if(remove)clearAssemblyLink(state,link);return !remove;});
- // Older saves used a stand's mountedId without an attachment record.
- for(const stand of state.sandbox.items.filter(i=>i.kind==='stand'))if((type==='apparatus'&&stand.mountedId===id)||(all&&type==='apparatus'&&stand.id===id))stand.mountedId=null;
- if(all&&type==='apparatus'){const item=labObject(state,key);if(item){item.targetId=null;item.sourceId=null;}}
-}
-function assemblyMembers(state,key){
- const seen=new Set([key]),queue=[key];
- while(queue.length){const parent=queue.shift();for(const link of state.sandbox.attachments||[])if(link.parent===parent&&!seen.has(link.child)){seen.add(link.child);queue.push(link.child);}
-  const item=labObject(state,parent);if(parent.startsWith('a:')&&item?.kind==='stand'&&item.mountedId){const held='a:'+item.mountedId;if(!seen.has(held)){seen.add(held);queue.push(held);}}
- }return [...seen];
-}
-function moveAssembly(state,type,id,x,y){
- const key=labKey(type,id),root=labObject(state,key);if(!root)return;
- const objects=assemblyMembers(state,key).map(k=>labObject(state,k)).filter(Boolean);
- const dx=Math.max(-Math.min(...objects.map(o=>o.x)),Math.min(1440-Math.max(...objects.map(o=>o.x)),x-root.x));
- const dy=Math.max(-Math.min(...objects.map(o=>o.y)),Math.min(760-Math.max(...objects.map(o=>o.y)),y-root.y));
- for(const object of objects){object.x+=dx;object.y+=dy;}
-}
-function findLabSnap(state,type,id,radius=65){
- const key=labKey(type,id),moving=labObject(state,key);if(!moving)return null;
- const excluded=new Set(assemblyMembers(state,key)),candidates=[];
- const add=(targetType,target,kind,x,y,role,label,parent,child,extra={})=>{
-  if(excluded.has(labKey(targetType,target.id)))return;
-  const distance=Math.hypot(moving.x-x,moving.y-y);
-  if(distance>radius||x<0||x>1440||y<0||y>760)return;
-  if(assemblyMembers(state,key).map(k=>labObject(state,k)).filter(Boolean).some(o=>o.x+x-moving.x<0||o.x+x-moving.x>1440||o.y+y-moving.y<0||o.y+y-moving.y>760))return;
-  if(kind==='attach'&&(assemblyCycle(state.sandbox.attachments||[],child,parent)||(state.sandbox.attachments||[]).some(l=>l.parent===parent&&l.role===role&&l.child!==child)))return;
-  candidates.push({kind,x,y,role,label,parent,child,targetKey:labKey(targetType,target.id),distance,...extra});
- };
- if(type==='apparatus'){
-  for(const v of state.vessels){
-   if(moving.kind==='burner')add('vessel',v,'attach',v.x+30,v.y+178,'heat','Place vessel over flame',key,'v:'+v.id);
-   if(moving.kind==='balance')add('vessel',v,'attach',v.x,v.y+150,'weigh','Place sample on balance',key,'v:'+v.id);
-   if(moving.kind==='burette')add('vessel',v,'attach',v.x+37,v.y-245,'receiver','Place receiver below tap',key,'v:'+v.id);
-   if(moving.kind==='thermometer')add('vessel',v,'attach',v.x+45,v.y+10,'probe','Insert thermometer','v:'+v.id,key);
-   if(moving.kind==='funnel')add('vessel',v,'attach',v.x+28,v.y-118,'funnel','Fit funnel into vessel','v:'+v.id,key);
-   if(moving.kind==='syringe')add('vessel',v,'attach',v.x+160,v.y-50,'gas','Connect gas tubing','v:'+v.id,key);
-   if(moving.kind==='bottle')add('vessel',v,'dose',v.x+30,v.y-95,null,'Add measured reagent',null,null,{vesselId:v.id,itemId:id});
-  }
-  for(const other of state.sandbox.items){
-   if(moving.kind==='bottle'&&other.kind==='burette')add('apparatus',other,'fill',other.x-8,other.y-105,null,'Fill burette from bottle',null,null,{bottleId:id,itemId:other.id});
-   if(moving.kind==='burette'&&other.kind==='stand'&&(!other.mountedId||other.mountedId===id))add('apparatus',other,'attach',other.x+80,other.y+10,'clamp','Snap burette into clamp','a:'+other.id,key);
-   if(moving.kind==='stand'&&other.kind==='burette'&&!moving.mountedId)add('apparatus',other,'attach',other.x-80,other.y-10,'clamp','Clamp the burette',key,'a:'+other.id);
-  }
- }else{
-  for(const item of state.sandbox.items){
-   if(item.kind==='burner')add('apparatus',item,'attach',item.x-30,item.y-178,'heat','Place vessel over flame','a:'+item.id,key);
-   if(item.kind==='balance')add('apparatus',item,'attach',item.x,item.y-150,'weigh','Place sample on balance','a:'+item.id,key);
-   if(item.kind==='burette')add('apparatus',item,'attach',item.x-37,item.y+245,'receiver','Place receiver below tap','a:'+item.id,key);
-   if(item.kind==='funnel'&&item.targetId&&item.targetId!==id)add('apparatus',item,'filter',item.x-50,item.y-65,null,'Pour mixture through filter',null,null,{sourceId:id,vesselId:item.targetId,itemId:item.id});
-  }
-  for(const v of state.vessels)if(v.id!==id&&moving.volume>0)add('vessel',v,'pour',v.x-70,v.y-65,null,'Pour measured mixture',null,null,{sourceId:id,vesselId:v.id});
- }
- return candidates.sort((a,b)=>a.distance-b.distance)[0]||null;
-}
-function commitLabSnap(state,type,id,snap){
- if(!snap||snap.kind!=='attach')return false;
- const child=labObject(state,snap.child),parent=labObject(state,snap.parent);if(!child||!parent||!validAssemblyRole(snap.role,snap.child,snap.parent,child,parent))return false;
- if(assemblyCycle(state.sandbox.attachments||[],snap.child,snap.parent))return false;
- const moving=labObject(state,labKey(type,id));if(!moving||![snap.x,snap.y].every(Number.isFinite))return false;
- if(assemblyMembers(state,labKey(type,id)).map(k=>labObject(state,k)).filter(Boolean).some(o=>o.x+snap.x-moving.x<0||o.x+snap.x-moving.x>1440||o.y+snap.y-moving.y<0||o.y+snap.y-moving.y>760))return false;
- // Move the object being dragged; clamp dependent parts before recording offsets.
- moveAssembly(state,type,id,snap.x,snap.y);
- const [childType,childId]=snap.child.split(':');detachLabObject(state,childType==='v'?'vessel':'apparatus',Number(childId));
- state.sandbox.attachments=(state.sandbox.attachments||[]).filter(l=>{if(l.parent===snap.parent&&l.role===snap.role){clearAssemblyLink(state,l);return false;}return true;});
- state.sandbox.attachments.push({child:snap.child,parent:snap.parent,role:snap.role,dx:child.x-parent.x,dy:child.y-parent.y});
- if(snap.role==='clamp')parent.mountedId=child.id;
- else if(['heat','weigh','receiver'].includes(snap.role))parent.targetId=child.id;
- else child.targetId=parent.id;
- return true;
-}
-
-
-const apparatusKinds={bottle:{name:'Reagent bottle',width:100,height:155},burner:{name:'Bunsen burner',width:100,height:135},burette:{name:'Burette',width:85,height:270},syringe:{name:'Gas syringe',width:220,height:90},funnel:{name:'Filter funnel',width:105,height:150},thermometer:{name:'Thermometer',width:70,height:190},balance:{name:'Balance',width:160,height:120},stand:{name:'Retort stand',width:150,height:280},stopwatch:{name:'Stopwatch',width:110,height:120}};
-function newSandbox(){return {version:1,zoom:.8,panX:-40,panY:-30,nextId:1,items:[],attachments:[],selectedItem:null,dosing:{volume:10,mass:.1,gas:10,concentration:.1,transfer:50}};}
-function fitSandbox(state,width=600,height=650){
- const objects=[...state.vessels.map(v=>({x:v.x,y:v.y,w:160,h:260})),...state.sandbox.items.map(i=>({x:i.x,y:i.y,w:apparatusKinds[i.kind].width,h:apparatusKinds[i.kind].height+65}))];
- if(!objects.length){state.sandbox.zoom=.8;state.sandbox.panX=0;state.sandbox.panY=0;return;}
- const minX=Math.min(...objects.map(o=>o.x)),maxX=Math.max(...objects.map(o=>o.x+o.w)),minY=Math.min(...objects.map(o=>o.y)),maxY=Math.max(...objects.map(o=>o.y+o.h));
- const zoom=Math.max(.35,Math.min(1.25,width/(maxX-minX+100),(height-60)/(maxY-minY+100)));
- state.sandbox.zoom=zoom;state.sandbox.panX=(width-(minX+maxX)*zoom)/2;state.sandbox.panY=(height-60-(minY+maxY)*zoom)/2;state.sandbox.fitted=true;
-}
-function zoomSandbox(state,factor,width=600,height=650){
- const old=state.sandbox.zoom,next=Math.max(.35,Math.min(1.75,old*factor)),ratio=next/old;
- state.sandbox.panX=width/2-(width/2-state.sandbox.panX)*ratio;state.sandbox.panY=height/2-(height/2-state.sandbox.panY)*ratio;state.sandbox.zoom=next;
-}
-function normaliseSandbox(state){
- const s=state.sandbox||newSandbox(),numeric=(x,lo,hi,fallback)=>Number.isFinite(x)&&x>=lo&&x<=hi?x:fallback;
- s.zoom=numeric(s.zoom,.35,1.75,.8);s.panX=numeric(s.panX,-2000,1000,-40);s.panY=numeric(s.panY,-1200,800,-30);s.nextId=numeric(s.nextId,1,100000,1);
- const ids=new Set();s.items=Array.isArray(s.items)?s.items.slice(0,30).filter(x=>x&&apparatusKinds[x.kind]&&Number.isInteger(x.id)&&x.id>0&&!ids.has(x.id)&&ids.add(x.id)).map(item=>({id:item.id,kind:item.kind,x:numeric(item.x,0,1450,600),y:numeric(item.y,0,800,250),on:Boolean(item.on),targetId:state.vessels.some(v=>v.id===item.targetId)?item.targetId:null,sourceId:state.vessels.some(v=>v.id===item.sourceId)?item.sourceId:null,loadedId:typeof item.loadedId==='string'&&/^[a-z0-9_]{1,40}$/.test(item.loadedId)?item.loadedId:null,concentration:numeric(item.concentration,.001,2,.1),remainingMl:numeric(item.remainingMl,0,50,0),deliveredMl:numeric(item.deliveredMl,0,100000,0),elapsed:numeric(item.elapsed,0,1000000,0),mountedId:Number.isInteger(item.mountedId)?item.mountedId:null})):[];
- s.nextId=Math.max(s.nextId,...s.items.map(i=>i.id+1));
- state.vessels.forEach((v,i)=>{v.x=numeric(v.x,0,1440,260+(i%5)*200);v.y=numeric(v.y,0,760,220+Math.floor(i/5)*270);});state.sandbox=s;s.selectedItem=s.items.some(i=>i.id===s.selectedItem)?s.selectedItem:null;const d=s.dosing||{};s.dosing={volume:numeric(d.volume,.001,500,10),mass:numeric(d.mass,.001,100,.1),gas:numeric(d.gas,.001,1000,10),concentration:numeric(d.concentration,.001,2,.1),transfer:numeric(d.transfer,.1,100,50)};normaliseAssembly(state);return s;
-}
-function moveLabObject(state,type,id,x,y){moveAssembly(state,type,id,x,y);}
-function nearestVessel(state,item){
- return [...state.vessels].filter(v=>Math.abs(v.x+80-item.x-apparatusKinds[item.kind].width/2)<125&&v.y>item.y+30&&v.y<item.y+480).sort((a,b)=>Math.abs(a.x-item.x)-Math.abs(b.x-item.x))[0]||null;
-}
-function tickSandbox(state,seconds){
- let changed=false;
- for(const item of state.sandbox?.items||[]){
-  if(item.kind==='stopwatch'&&item.on){item.elapsed+=seconds;changed=true;}
-  if(item.kind==='burner'&&item.on){const v=state.vessels.find(v=>v.id===item.targetId);if(v){const next=Math.min(v.volume>0?100:500,v.temp+3*seconds);if(next!==v.temp){v.temp=next;v.heated=true;resolve(v);changed=true;}}}
- }return changed;
-}
-function apparatusSVG(item,state,elements){
- const v=state.vessels.find(v=>v.id===item.targetId),k=item.kind;
- let body='',text='';
- if(k==='bottle'){const c=chemicals.find(c=>c.id===item.loadedId);body=`<rect x="31" y="5" width="38" height="15" rx="4" fill="#8093a7"/><path d="M34 20h32v17l16 13v88q0 8-8 8H26q-8 0-8-8V50l16-13Z" fill="${c?.color||'#abd6de'}85" stroke="#879fb5"/><path d="M27 58v72" stroke="#fff9" stroke-width="4"/><rect x="24" y="71" width="52" height="39" rx="3" fill="#f5f8f5e8"/><text x="50" y="95" text-anchor="middle" font-size="10" fill="#526a80">${esc(c?.formula||'Reagent')}</text>`;text=c?.state==='solid'?'Drag over a vessel to add solid':'Drag over a vessel to pour';}
- if(k==='burner'){body=`<path d="M15 117h70l9 13H6z" fill="#8198ae"/><rect x="42" y="52" width="16" height="67" rx="4" fill="#a7bbcd" stroke="#728aa3"/><rect x="38" y="96" width="24" height="12" rx="3" fill="#718ba4"/>${item.on?'<path class="flame" d="M50 53C22 43 35 16 49 3C46 26 70 29 50 53Z" fill="#6198ed"/><path class="flame" d="M50 52C41 45 47 33 50 29C56 42 58 46 50 52Z" fill="#bde4fa"/>':''}`;text=item.on?'Flame on':'Flame off';}
- if(k==='burette'){body=`<path d="M31 5h23v221H31z" fill="#ffffff60" stroke="#7898b4"/><rect x="33" y="${224-item.remainingMl/50*210}" width="19" height="${item.remainingMl/50*210}" fill="#8bbadd7a"/><path d="M25 228h35M43 227v35" stroke="#7898b4" stroke-width="3"/>${Array.from({length:10},(_,i)=>`<path d="M44 ${18+i*20}h9" stroke="#7898b4"/>`).join('')}`;text=fmt(item.remainingMl)+' mL remaining';}
- if(k==='syringe'){const ml=v?Math.min(100,Object.values(v.gas).reduce((a,n)=>a+n,0)*24000):0;body=`<rect x="18" y="24" width="150" height="45" rx="4" fill="#ffffff6a" stroke="#7793ad"/><rect x="18" y="26" width="${Math.max(2,ml/100*140)}" height="41" fill="#a0c9e35a"/><path d="M${23+ml/100*138} 28v37M${23+ml/100*138} 46H207m0-22v45M2 42h17" stroke="#6f8aa5" stroke-width="3"/>${Array.from({length:9},(_,i)=>`<path d="M${34+i*14} 25v9" stroke="#7793ad"/>`).join('')}`;text=(v?fmt(ml)+' / 100 mL':'Connect a gas source');}
- if(k==='funnel'){body='<path d="M5 15h95L60 70v66H45V70Z" fill="#ffffff65" stroke="#86a1b7"/><path d="M14 24h75L52 70Z" fill="#f7f8fa" stroke="#b9c5d4"/>';text='Filter into receiver';}
- if(k==='thermometer'){const t=v?v.temp:20;body=`<rect x="27" y="8" width="17" height="135" rx="8" fill="#ffffff70" stroke="#90a5bb"/><circle cx="35" cy="153" r="17" fill="#ffffff70" stroke="#90a5bb"/><path d="M35 150V${142-Math.min(120,t)}" stroke="#d5829e" stroke-width="6" stroke-linecap="round"/><circle cx="35" cy="153" r="10" fill="#d5829e"/>`;text=v?fmt(t,1)+' °C':'Connect a sample';}
- if(k==='balance'){let mass=0;if(v)for(const s of v.contents.filter(s=>s.chem.state==='solid')){try{mass+=s.n*molarMass(s.chem.formula,elements);}catch{}}body=`<path d="M21 30h118v9H21z" fill="#bccbd5" stroke="#89a0b3"/><path d="M37 39h86l18 53H19Z" fill="#c8d6e3" stroke="#8fa6bd"/><rect x="40" y="58" width="80" height="25" rx="4" fill="#eff7f6"/><text x="80" y="75" text-anchor="middle" font-size="13" fill="#648b8a">${fmt(mass,3)} g</text>`;text='Solid sample mass';}
- if(k==='stand'){body='<path d="M20 262h115l10 12H10z" fill="#a0b3c5" stroke="#849cb3"/><path d="M42 264V8M42 70h82" stroke="#7c94ab" stroke-width="7"/><circle cx="122" cy="70" r="11" stroke="#7c94ab" fill="none" stroke-width="4"/>';text=item.mountedId?'Burette mounted':'Mount a burette';}
- if(k==='stopwatch'){body=`<rect x="17" y="20" width="79" height="85" rx="22" fill="#c8d7e7" stroke="#91a8bd"/><path d="M47 11h20" stroke="#91a8bd" stroke-width="7"/><rect x="28" y="43" width="57" height="33" rx="8" fill="#f5f8fd"/><text x="56" y="65" text-anchor="middle" font-size="14" fill="#6285a6">${Math.floor(item.elapsed/60).toString().padStart(2,'0')}:${Math.floor(item.elapsed%60).toString().padStart(2,'0')}</text>`;text=item.on?'Running':'Paused';}
- const spec=apparatusKinds[k];return `<svg viewBox="0 0 ${spec.width} ${spec.height}" aria-label="${spec.name}" role="img">${body}</svg><span class="object-name">${esc(k==='bottle'?chemicals.find(c=>c.id===item.loadedId)?.name||spec.name:spec.name)}</span><span class="object-status">${esc(text)}</span>${v?`<span class="object-connection">→ ${esc(v.name)}</span>`:''}`;
-}
-function labObjectTools(item,state){
- if(state.sandbox.selectedItem!==item.id)return '';
- const controls=item.kind==='burner'||item.kind==='stopwatch'?`<button data-act="apparatus-toggle" data-id="${item.id}" aria-label="${item.on?'Switch off or pause':'Light burner or start timer'}">${item.on?'Ⅱ':item.kind==='burner'?'Light':'Start'}</button>${item.kind==='stopwatch'?`<button data-act="stopwatch-reset" data-id="${item.id}">Reset</button>`:''}`:item.kind==='burette'?[.1,1,5].map(n=>`<button data-act="burette-dose" data-id="${item.id}:${n}">${n} mL</button>`).join(''):item.kind==='bottle'?`<button data-act="bottle-dose" data-id="${item.id}">Add dose</button>`:'';
- const spec=apparatusKinds[item.kind];return `<div class="object-tools" data-follow="${item.id}" style="left:${item.x+spec.width/2}px;top:${item.y+spec.height+74}px">${controls}<button data-act="apparatus-detach" data-id="${item.id}" aria-label="Detach apparatus">↗</button></div>`;
-}
-function sandboxStageHTML(state,elements){
- const s=normaliseSandbox(state);
- const lines=s.items.filter(i=>i.kind==='syringe'&&i.targetId).map(i=>{const v=state.vessels.find(v=>v.id===i.targetId);return v?`<path data-gas-link="${i.id}" d="${gasTubePath(i,v)}" class="apparatus-line gas-line"/>`:'';}).join('');
- const vessels=state.vessels.map(v=>{const a=appearance(v);return `<button class="lab-object lab-vessel ${state.selected===v.id&&!s.selectedItem?'selected':''}" data-kind="vessel" data-object="${v.id}" data-act="select-vessel" data-id="${v.id}" aria-pressed="${state.selected===v.id&&!s.selectedItem}" style="left:${v.x}px;top:${v.y}px" aria-label="${esc(v.name)}. Drag to arrange, snap or pour.">${glassware(v.shape,a.color,v.volume/v.capacity,a.precip[0]?.chem.color,a.precip.length>0,Object.keys(v.gas).length>0,v.heated)}<span class="object-name">${esc(v.name)}</span><span class="object-status">${fmt(v.volume)} mL · ${fmt(v.temp,1)} °C</span></button>`;}).join('');
- const equipment=s.items.map(item=>`<button class="lab-object lab-apparatus ${item.on?'apparatus-on':''} ${s.selectedItem===item.id?'selected':''}" data-kind="apparatus" data-object="${item.id}" data-act="apparatus-menu" data-id="${item.id}" aria-pressed="${s.selectedItem===item.id}" style="left:${item.x}px;top:${item.y}px;width:${apparatusKinds[item.kind].width}px" aria-label="${esc(item.kind==='bottle'?chemicals.find(c=>c.id===item.loadedId)?.name||'Reagent bottle':apparatusKinds[item.kind].name)}. Drag near compatible apparatus to snap.">${apparatusSVG(item,state,elements)}</button>${labObjectTools(item,state)}`).join('');
- return `<div class="sandbox-viewport" id="sandbox-viewport" tabindex="0" aria-label="Sandbox. Drag compatible apparatus together to snap. Pull a part away to detach. Drag empty space to pan."><div class="sandbox-world" id="sandbox-world" style="transform:translate(${s.panX}px,${s.panY}px) scale(${s.zoom})"><div class="sandbox-grid"></div><svg class="sandbox-connections" viewBox="0 0 1600 1000" aria-hidden="true">${lines}</svg>${vessels}${equipment}<div class="snap-point" id="snap-point" hidden aria-hidden="true"></div></div><div class="snap-hint" id="snap-hint" role="status" aria-live="polite" hidden></div><div class="sandbox-corner"><span>Bring parts together to snap · pull apart to detach</span><div class="sandbox-view-controls"><button data-act="zoom-out" aria-label="Zoom out">−</button><span>${Math.round(s.zoom*100)}%</span><button data-act="zoom-in" aria-label="Zoom in">＋</button><button data-act="sandbox-home" aria-label="Centre the scene">⌖</button></div></div>${!state.vessels.length&&!s.items.length?'<div class="sandbox-empty"><h2>Your experiment<br>starts here.</h2><p>Drag apparatus and reagent bottles from the library.</p></div>':''}</div>`;
-}
-function gasTubePath(item,v){return `M${v.x+80} ${v.y+25}C${v.x+80} ${v.y-50},${item.x-35} ${item.y+46},${item.x+8} ${item.y+46}`;}
-function attachSandbox(state,{save,checkpoint,render,onDose,onAddReagent,onSelect,onObjectDrop=()=>{},onError=()=>{}}){
- const view=document.querySelector('#sandbox-viewport'),world=document.querySelector('#sandbox-world');if(!view||!view.addEventListener)return;
- const hint=document.querySelector('#snap-hint'),point=document.querySelector('#snap-point');let drag=null,suppress=false;
- function updateScene(){
-  for(const el of world.querySelectorAll('.lab-object')){const obj=labObject(state,labKey(el.dataset.kind,Number(el.dataset.object)));if(obj){el.style.left=obj.x+'px';el.style.top=obj.y+'px';}}
-  for(const el of world.querySelectorAll('.object-tools'))if(el.dataset.follow){const item=labObject(state,'a:'+el.dataset.follow);if(item){el.style.left=(item.x+apparatusKinds[item.kind].width/2)+'px';el.style.top=(item.y+apparatusKinds[item.kind].height+74)+'px';}}
-  for(const el of world.querySelectorAll('[data-gas-link]'))if(el.dataset.gasLink){const item=labObject(state,'a:'+el.dataset.gasLink),v=state.vessels.find(v=>v.id===item?.targetId);if(v)el.setAttribute('d',gasTubePath(item,v));}
- }
- function preview(snap){
-  if(hint){hint.hidden=!snap;hint.textContent=snap?'Release · '+snap.label:'';}
-  if(point){point.hidden=!snap;if(snap){point.style.left=(snap.x+50)+'px';point.style.top=(snap.y+25)+'px';}}
-  for(const el of world.querySelectorAll('.lab-object'))if(el.classList){el.classList.toggle('snap-target',Boolean(snap&&labKey(el.dataset.kind,Number(el.dataset.object))===snap.targetKey));el.classList.toggle('pour-preview',Boolean(snap&&snap.kind!=='attach'&&drag&&Number(el.dataset.object)===drag.id&&el.dataset.kind===drag.type));}
- }
- view.addEventListener('pointerdown',e=>{
-  if(e.button!==0||e.target.closest('.sandbox-view-controls')||e.target.closest('.object-tools'))return;
-  const target=e.target.closest('.lab-object');drag={id:target?Number(target.dataset.object):null,type:target?.dataset.kind,x:e.clientX,y:e.clientY,panX:state.sandbox.panX,panY:state.sandbox.panY,moved:false};
-  if(target){const obj=labObject(state,labKey(drag.type,drag.id));drag.ox=obj.x;drag.oy=obj.y;if(drag.type==='vessel'){state.selected=drag.id;state.sandbox.selectedItem=null;}else state.sandbox.selectedItem=drag.id;onSelect();}
-  view.classList.add('is-dragging');
- });
- view.addEventListener('pointermove',e=>{
-  if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;
-  if(!drag.moved&&Math.abs(dx)+Math.abs(dy)>5){drag.before=JSON.stringify({vessels:state.vessels,sandbox:state.sandbox});checkpoint();drag.moved=true;if(drag.id)detachLabObject(state,drag.type,drag.id);view.setPointerCapture(e.pointerId);}
-  if(!drag.moved)return;
-  if(drag.id){moveLabObject(state,drag.type,drag.id,drag.ox+dx/state.sandbox.zoom,drag.oy+dy/state.sandbox.zoom);updateScene();preview(findLabSnap(state,drag.type,drag.id,Math.min(90,50/state.sandbox.zoom)));}
-  else{state.sandbox.panX=Math.max(-2000,Math.min(1000,drag.panX+dx));state.sandbox.panY=Math.max(-1200,Math.min(800,drag.panY+dy));world.style.transform=`translate(${state.sandbox.panX}px,${state.sandbox.panY}px) scale(${state.sandbox.zoom})`;}
- });
- const finish=e=>{
-  if(!drag)return;const ended=drag;drag=null;view.classList.remove('is-dragging');
-  if(ended.moved){suppress=true;
-   if(e.type==='pointercancel'){const old=JSON.parse(ended.before);state.vessels=old.vessels;state.sandbox=old.sandbox;}
-   else if(ended.id){const snap=findLabSnap(state,ended.type,ended.id,Math.min(90,50/state.sandbox.zoom));if(snap){if(snap.kind==='attach')commitLabSnap(state,ended.type,ended.id,snap);else{moveLabObject(state,ended.type,ended.id,ended.ox,ended.oy);try{onObjectDrop(snap);}catch(error){onError(error.message);}}}}
-   preview(null);save();setTimeout(()=>{suppress=false;render();},0);
-  }
-  if(view.hasPointerCapture(e.pointerId))view.releasePointerCapture(e.pointerId);
- };
- view.addEventListener('pointerup',finish);view.addEventListener('pointercancel',finish);
- view.addEventListener('click',e=>{if(suppress){e.preventDefault();e.stopPropagation();}},true);
- view.addEventListener('keydown',e=>{
-  const object=e.target.closest('.lab-object');if(!object)return;
-  const kind=object.dataset.kind,id=Number(object.dataset.object);
-  if(e.key==='Escape'){e.preventDefault();checkpoint();detachLabObject(state,kind,id,true);save();render();return;}
-  if(e.key==='Enter'&&e.shiftKey){e.preventDefault();const snap=findLabSnap(state,kind,id,90);if(snap){checkpoint();if(snap.kind==='attach')commitLabSnap(state,kind,id,snap);else try{onObjectDrop(snap);}catch(error){onError(error.message);}save();render();}return;}
-  if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key))return;e.preventDefault();checkpoint();detachLabObject(state,kind,id);const obj=labObject(state,labKey(kind,id)),step=e.shiftKey?40:10;moveLabObject(state,kind,id,obj.x+(e.key==='ArrowRight'?step:e.key==='ArrowLeft'?-step:0),obj.y+(e.key==='ArrowDown'?step:e.key==='ArrowUp'?-step:0));save();render();document.querySelector(`[data-kind="${kind}"][data-object="${id}"]`)?.focus();
- });
- view.addEventListener('wheel',e=>{e.preventDefault();const bounds=view.getBoundingClientRect(),x=e.clientX-bounds.left,y=e.clientY-bounds.top,old=state.sandbox.zoom,next=Math.max(.35,Math.min(1.75,old*Math.exp(-e.deltaY*.0015))),ratio=next/old;state.sandbox.panX=Math.max(-2000,Math.min(1000,x-(x-state.sandbox.panX)*ratio));state.sandbox.panY=Math.max(-1200,Math.min(800,y-(y-state.sandbox.panY)*ratio));state.sandbox.zoom=next;world.style.transform=`translate(${state.sandbox.panX}px,${state.sandbox.panY}px) scale(${next})`;const readout=view.querySelector?.('.sandbox-view-controls span');if(readout)readout.textContent=Math.round(next*100)+'%';save();},{passive:false});
- view.addEventListener('dragover',e=>{e.preventDefault();});
- view.addEventListener('drop',e=>{e.preventDefault();const reagent=e.dataTransfer.getData('text/plain'),vessel=e.target.closest('.lab-vessel'),equipment=e.target.closest('.lab-apparatus'),bounds=view.getBoundingClientRect(),position={x:(e.clientX-bounds.left-state.sandbox.panX)/state.sandbox.zoom,y:(e.clientY-bounds.top-state.sandbox.panY)/state.sandbox.zoom};if(reagent.startsWith('vessel:')||reagent.startsWith('apparatus:'))onAddReagent(reagent,null,position);else if(vessel){state.selected=Number(vessel.dataset.object);state.sandbox.selectedItem=null;onDose(reagent);}else if(equipment)onAddReagent(reagent,Number(equipment.dataset.object));else onAddReagent(reagent,null,position);});
-}
+function originalLabProfile(value){return typeof value==='string'&&/^[A-Za-z0-9_.-]{3,32}$/.test(value)?value.toLowerCase():'guest';}
+function sidebarIsHidden(storage){try{return storage.getItem('chemlab.sidebar.hidden')==='1';}catch{return false;}}
 
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 let KEY='chemlab.studio.v2';
 const NAV=[['bench','Lab bench'],['practicals','Practicals'],['learn','Learn & practise'],['periodic','Periodic table'],['tools','Calculations'],['notebook','Lab notebook']];
 let storageOK=true;
-function fresh(){const v=makeVessel(1);return {version:2,vessels:[v,makeVessel(2,'flask')],sandbox:newSandbox(),selected:1,nextVessel:3,notes:[],mastered:[],practised:[],trials:{},params:{},theme:'light',motion:false,score:{correct:0,total:0}};}
+function fresh(){return {version:2,vessels:[],sandbox:null,originalLab:null,selected:null,nextVessel:1,notes:[],mastered:[],practised:[],trials:{},params:{},theme:'light',motion:false,score:{correct:0,total:0}};}
 function validate(data){
  if(!data||data.version!==2||!Array.isArray(data.vessels)||data.vessels.length>24)throw Error('This is not a Chemlab 2 workspace.');
  const str=(x,n=2000)=>typeof x==='string'&&x.length<=n;
@@ -801,48 +636,25 @@ function validate(data){
  const params={};for(const [id,list]of Object.entries(controls)){params[id]=defaults(id);for(const c of list){const v=data.params?.[id]?.[c.key];if(num(v,c.options?0:c.min,c.options?c.options.length-1:c.max))params[id][c.key]=v;}}
  data.params=params;
  const trials={};for(const p of practicals){const t=data.trials?.[p.id];if(Array.isArray(t))trials[p.id]=t.slice(-50).filter(t=>str(t.date,80)&&Array.isArray(t.metrics)&&t.metrics.length<=10&&t.metrics.every(a=>Array.isArray(a)&&a.length===2&&a.every(v=>str(v,1000)))).map(t=>({date:t.date,metrics:t.metrics,params:Object.fromEntries(controls[p.id].map(c=>[c.key,num(t.params?.[c.key],c.options?0:c.min,c.options?c.options.length-1:c.max)?t.params[c.key]:c.value]))}));}data.trials=trials;
- data.nextVessel=Math.max(0,...ids)+1;data.selected=ids.has(data.selected)?data.selected:data.vessels[0]?.id;data.theme=data.theme==='dark'?'dark':'light';data.motion=Boolean(data.motion);data.score={correct:Math.max(0,Math.min(Number(data.score?.correct)||0,100000)),total:Math.max(0,Math.min(Number(data.score?.total)||0,100000))};normaliseSandbox(data);return data;
+ data.nextVessel=Math.max(0,...ids)+1;data.selected=ids.has(data.selected)?data.selected:data.vessels[0]?.id;data.theme=data.theme==='dark'?'dark':'light';data.motion=Boolean(data.motion);data.score={correct:Math.max(0,Math.min(Number(data.score?.correct)||0,100000)),total:Math.max(0,Math.min(Number(data.score?.total)||0,100000))};data.originalLab=data.originalLab?validateOriginalWorkspace(data.originalLab):null;return data;
 }
 let state;try{const raw=localStorage.getItem(KEY);state=raw?validate(JSON.parse(raw)):fresh();}catch{state=fresh();storageOK=false;}
-let benchShelfTab='reagents';
-let page='bench',practicalID=null,lessonID=lessons[0].id,noteID=state.notes[0]?.id,filter='',catalogFilter='All',shelfQuery='',shelfFilter='All',elementQuery='',elementFilter='All',undo=[],compare=null,quiz=null,quizIndex=0,quizRevealed=false,quizOptions=[],timer=null;
-const main=$('#main'),dialog=$('#dialog');
+let activeProfile=null,labFrameProfile=null,labSessionReady=!$('#auth-root')||typeof fetch!=='function',sidebarHidden=sidebarIsHidden(localStorage);
+let page='bench',practicalID=null,lessonID=lessons[0].id,noteID=state.notes[0]?.id,filter='',catalogFilter='All',elementQuery='',elementFilter='All',compare=null,quiz=null,quizIndex=0,quizRevealed=false,quizOptions=[],timer=null;
+const main=$('#studio-view')||$('#main'),dialog=$('#dialog');
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state));storageOK=true;$('#save-status').textContent='Saved on this device';}catch{storageOK=false;$('#save-status').textContent='Storage unavailable · export a backup';}}
 function toast(text){$('#toast').textContent=text;$('#toast').classList.add('show');clearTimeout(timer);timer=setTimeout(()=>$('#toast').classList.remove('show'),3500);}
-function applySettings(){document.body.classList.toggle('dark',state.theme==='dark');document.body.classList.toggle('reduce-motion',state.motion);}
-function checkpoint(){undo.push(JSON.stringify({vessels:state.vessels,sandbox:state.sandbox}));if(undo.length>20)undo.shift();}
-function selected(){return state.vessels.find(v=>v.id===state.selected)||state.vessels[0];}
-function mutate(fn){const before=JSON.stringify({vessels:state.vessels,sandbox:state.sandbox});try{checkpoint();fn();save();render();}catch(e){const old=JSON.parse(before);state.vessels=old.vessels;state.sandbox=old.sandbox;undo.pop();toast(e.message);}}
+function applySettings(){document.body.classList.toggle('dark',state.theme==='dark');document.body.classList.toggle('reduce-motion',state.motion);syncSidebar();postOriginalLab('appearance');}
 function download(name,content,type='text/plain'){const a=document.createElement('a'),url=URL.createObjectURL(new Blob([content],{type}));a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),5000);}
 function closeInlinePanel(){dialog.hidden=true;dialog.open=false;const content=$('#dialog-content');if(content)content.innerHTML='';}
-function modal(title,html){const host=page==='bench'?$('#bench-controls'):$('#inline-host');if(host?.appendChild)host.appendChild(dialog);$('#dialog-content').innerHTML=`<div class="dialog-head"><h2>${esc(title)}</h2><button class="icon-btn" data-act="close" aria-label="Close details">×</button></div><div class="dialog-body">${html}</div>`;dialog.hidden=false;dialog.open=true;}
+function modal(title,html){const host=$('#inline-host');if(host?.appendChild)host.appendChild(dialog);$('#dialog-content').innerHTML=`<div class="dialog-head"><h2>${esc(title)}</h2><button class="icon-btn" data-act="close" aria-label="Close details">×</button></div><div class="dialog-body">${html}</div>`;dialog.hidden=false;dialog.open=true;}
 function formModal(title,body,onSubmit){modal(title,`<form id="modal-form" class="dialog-form">${body}<div class="dialog-actions"><button class="btn" type="button" data-act="close">Cancel</button><button class="btn primary" type="submit">Confirm</button></div></form>`);$('#modal-form').onsubmit=e=>{e.preventDefault();try{onSubmit(new FormData(e.currentTarget));closeInlinePanel();save();render();}catch(e){toast(e.message);}};}
 const field=(name,label,value,type='number',extra='')=>`<div class="field"><label for="field-${name}">${esc(label)}</label><input id="field-${name}" name="${name}" type="${type}" value="${esc(value)}" ${extra}></div>`;
 function heading(title,subtitle,extra='',eyebrow='A LITTLE CURIOSITY GOES A LONG WAY'){return `<div class="page-heading"><div><div class="eyebrow">${eyebrow}</div><h1>${esc(title)}</h1><p>${esc(subtitle)}</p></div>${extra}</div>`;}
-function render(){closeInlinePanel();applySettings();document.body.classList.toggle('is-sandbox',page==='bench');normaliseSandbox(state);$('#nav').innerHTML=NAV.map(([id,label])=>`<button class="nav-btn ${page===id?'active':''}" data-act="nav" data-id="${id}" ${page===id?'aria-current="page"':''}>${icon(id)}<span class="nav-label">${label}</span>${id==='practicals'?'<span class="count">18</span>':''}</button>`).join('');$('#crumb').textContent=NAV.find(([id])=>id===page)?.[1]||'Lab bench';
+function render(){closeInlinePanel();applySettings();document.body.classList.toggle('is-original-bench',page==='bench');const labHost=$('#original-lab-view');if(labHost)labHost.hidden=page!=='bench';main.hidden=page==='bench';$('#nav').innerHTML=NAV.map(([id,label])=>`<button class="nav-btn ${page===id?'active':''}" data-act="nav" data-id="${id}" ${page===id?'aria-current="page"':''}>${icon(id)}<span class="nav-label">${label}</span>${id==='practicals'?'<span class="count">18</span>':''}</button>`).join('');$('#crumb').textContent=NAV.find(([id])=>id===page)?.[1]||'Lab bench';
  if(page==='bench')renderBench();if(page==='practicals')practicalID?renderPractical():renderPracticals();if(page==='learn')quiz?renderQuiz():renderLearn();if(page==='periodic')renderPeriodic();if(page==='tools')renderTools();if(page==='notebook')renderNotebook();
  if(!storageOK)$('#save-status').textContent='Export a backup to keep your work';}
 function practicalCard(p){const colors={Principles:'#79abd7',Inorganic:'#6fc0b6',Physical:'#ac9dd4',Organic:'#d4b185'};return `<button class="practical-card" style="--card-color:${colors[p.strand]}" data-act="practical" data-id="${p.id}"><div class="category">${esc(p.strand.toUpperCase())} <span class="badge" style="margin-left:8px">${esc(p.ref)}</span></div><div class="card-art">${glassware(p.id==='titration'?'flask':p.id==='analysis'?'tube':'beaker',colors[p.strand],.45,'#edf3f5',p.id==='precipitation')}</div><h3>${esc(p.title)}</h3><p>${esc(p.headline)}</p><div class="card-foot"><span>${state.practised.includes(p.id)?'✓ Explored':'Explore practical'}</span><span class="arrow">↗</span></div></button>`;}
-function renderBench(){
- const v=selected();
- main.innerHTML=heading('Make room for discovery.','A free bench for your own experiments. Arrange, connect, measure, and explore.',`<div class="row"><button class="btn subtle" data-act="export">↗ Save workspace</button><button class="btn primary" data-act="add-vessel">＋ Add apparatus</button></div>`,'THE SANDBOX LAB')+`
- <div class="bench-layout sandbox-layout"><section class="panel glass shelf sandbox-shelf"><div class="panel-head"><h2>Library</h2></div><div class="shelf-tabs"><button data-act="shelf-tab" data-id="reagents" class="${benchShelfTab==='reagents'?'active':''}">Reagents <span>122</span></button><button data-act="shelf-tab" data-id="apparatus" class="${benchShelfTab==='apparatus'?'active':''}">Apparatus</button></div><div class="shelf-search"><input id="shelf-search" class="search" aria-label="Search the shelf" placeholder="${benchShelfTab==='reagents'?'Search name or formula…':'Search apparatus…'}" value="${esc(shelfQuery)}"></div>${benchShelfTab==='reagents'?`<div class="chips">${['All','Acids','Bases','Salts','Metals','More'].map(c=>`<button class="chip ${shelfFilter===c?'active':''}" data-act="shelf-filter" data-id="${c}">${c}</button>`).join('')}</div>`:''}<div class="reagents" id="reagents"></div><div class="shelf-foot">Drag an item onto the bench, or tap to add it. Drop reagents into empty space to place a bottle.</div></section>
- <div class="bench-center"><section class="panel glass sandbox-scene"><div class="sandbox-toolbar"><div><h2>Workspace</h2></div><div class="row"><button class="btn small" data-act="sandbox-home">Centre scene</button><button class="btn small danger" data-act="clear-bench">Clear bench</button></div></div>${sandboxStageHTML(state,elements)}</section><div class="glass panel bench-actions">${[['heat','Heat'],['transfer','Transfer'],['filter','Filter'],['crystallise','Crystallise'],['evaporate','Evaporate'],['gas-test','Gas test'],['history','History'],['undo','Undo']].map(([id,label])=>`<button class="btn" data-act="${id}" ${(id==='undo'?!undo.length:!v)?'disabled':''}><span class="tool-icon">${icon(id)}</span>${label}</button>`).join('')}</div><div class="sandbox-note"><span class="live-dot"></span><span>Bring compatible parts together to snap. Pull a part away to detach. Set measured additions on the right.</span><button data-act="sandbox-help">How to use ↗</button></div></div>
- <section class="panel glass inspector sandbox-inspector"><div class="panel-head"><h2>Under the surface</h2><span class="badge">Selected vessel</span></div><div class="panel-body"><div id="measurement-controls"></div><div id="bench-controls"></div><div id="inspector"></div></div></section></div>`;
- renderShelf();renderMeasurementControls();renderInspector();const viewport=$('#sandbox-viewport');if(!state.sandbox.fitted&&viewport?.clientWidth){fitSandbox(state,viewport.clientWidth,viewport.clientHeight);$('#sandbox-world').style.transform=`translate(${state.sandbox.panX}px,${state.sandbox.panY}px) scale(${state.sandbox.zoom})`;save();}$('#shelf-search').oninput=e=>{shelfQuery=e.target.value;renderShelf();};
- attachSandbox(state,{save,checkpoint,render,onDose:id=>{try{toast(directBenchDose(id));save();render();}catch(error){toast(error.message);}},onAddReagent:sandboxDrop,onSelect:()=>renderInspector(),onObjectDrop:applyDirectDrop,onError:toast});
-}
-function renderShelf(){if(benchShelfTab==='apparatus'){
- const list=[...['beaker','flask','tube','dish'].map(kind=>({id:'vessel:'+kind,name:{beaker:'Beaker',flask:'Conical flask',tube:'Test tube',dish:'Evaporating dish'}[kind],kind})),...Object.entries(apparatusKinds).filter(([kind])=>kind!=='bottle').map(([kind,spec])=>({id:'apparatus:'+kind,name:spec.name,kind}))].filter(item=>item.name.toLowerCase().includes(shelfQuery.toLowerCase()));
- $('#reagents').innerHTML=list.map(item=>`<button class="equipment-shelf-item" draggable="true" data-act="shelf-add" data-id="${item.id}"><span class="equipment-glyph">${icon(['beaker','flask','tube','dish'].includes(item.kind)?'bench':item.kind==='burner'?'heat':item.kind==='funnel'?'filter':item.kind==='stopwatch'?'history':'tools')}</span><span><b>${item.name}</b><small>Drag to place · tap to add</small></span><span>＋</span></button>`).join('')||'<div class="empty">No matching apparatus.</div>';
- $$('.equipment-shelf-item').forEach(el=>el.ondragstart=e=>e.dataTransfer.setData('text/plain',el.dataset.id));return;
- }const cat={Acids:'acid',Bases:'base',Salts:'salt',Metals:'metal'},q=shelfQuery.toLowerCase().trim();const list=chemicals.filter(c=>(!q||(c.name+' '+c.formula).toLowerCase().includes(q))&&(shelfFilter==='All'||(shelfFilter==='More'?!['acid','base','salt','metal'].includes(c.category):c.category===cat[shelfFilter])));$('#reagents').innerHTML=list.map(c=>`<button draggable="true" class="reagent" data-act="dose" data-id="${c.id}"><span class="bottle-icon" style="--chem:${c.color}"></span><span><b>${esc(c.name)}</b><small>${chemText(c.formula)} · ${c.state==='aqueous'?'solution':esc(c.state)}</small></span><span class="plus">＋</span></button>`).join('')||'<div class="empty">No reagents found.</div>';$$('.reagent').forEach(el=>el.ondragstart=e=>e.dataTransfer.setData('text/plain',el.dataset.id));}
-function renderInspector(){const item=apparatusItem(state.sandbox.selectedItem);if(item){renderApparatusInspector(item);return;}const v=selected();if(!v){$('#inspector').innerHTML='<div class="empty">Add and select a vessel to inspect it.</div>';return;}const a=appearance(v),p=a.ph;
- $('#inspector').innerHTML=`<div><div class="metric-pair"><div class="metric"><label>VOLUME</label><strong>${fmt(v.volume)} <small>mL</small></strong></div><div class="metric"><label>MODEL pH</label><strong>${p===null?'—':fmt(p,2)}</strong></div></div><div class="mini-label">${esc(v.name)} · contents</div>${v.contents.map(s=>`<div class="content-line"><span class="dot" style="--chem:${s.chem.color}"></span><div>${esc(s.chem.name)}<br><small>${chemText(s.chem.formula)} · ${s.n.toExponential(2)} mol · ${s.chem.state==='aqueous'?'aq':s.chem.state}</small></div></div>`).join('')||`<div class="hint">${v.volume?'Solvent only.':'Clean glass. Endless possibilities.'}</div>`}${v.indicator?`<div class="hint" style="margin-top:8px">Indicator: ${esc(chemicals.find(c=>c.id===v.indicator)?.name)}</div>`:''}<div class="hint" style="margin-top:10px">${p===null?'pH is unavailable for dry solids or mixtures outside the supported acid–base model.':'Ideal concentration model at 25°C. Salt hydrolysis and non-ideal activities are limited; see model notes.'}</div></div><div><div class="mini-label">Latest reaction</div>${a.last?`<div class="reaction-box"><span class="badge">${esc(a.last.kind)}</span><div class="equation">${chemText(a.last.equation)}</div>${esc(a.last.text)}${a.last.limiting?`<div class="hint" style="margin-top:8px">Consumed: ${esc(a.last.limiting)}</div>`:''}</div>`:'<div class="reaction-box">Add a second substance and see what the supported chemistry predicts.</div>'}<div class="mini-label">Gas collected (ideal RTP)</div><div class="hint">${Object.entries(v.gas).map(([g,n])=>`${chemText(g)}: ${fmt(n*24000)} mL`).join(' · ')||'No gas recorded.'}</div><div class="inspector-actions"><button class="btn small" data-act="record-bench">＋ Notebook</button><button class="btn small" data-act="rename-vessel">Rename</button><button class="btn small danger" data-act="empty-vessel">Empty</button><button class="btn small danger" data-act="remove-vessel">Remove</button></div></div>`;
-}
-function doseDialog(id){const c=chemicals.find(c=>c.id===id),v=selected();if(!c)return;if(!v){toast('Add a vessel first.');return;}
- const liquid=['aqueous','liquid'].includes(c.state);formModal('A measured addition',`<div class="row"><span class="bottle-icon" style="--chem:${c.color}"></span><div><h3>${esc(c.name)}</h3><span class="muted">${chemText(c.formula)} · ${esc(c.state)}</span></div></div><p class="hint">Into ${esc(v.name)} · ${fmt(v.capacity-v.volume)} mL capacity available.<br>${esc(c.hazard||'Standard laboratory precautions apply.')} This is a virtual representation.</p>${field('amount',liquid?'Volume / mL':c.state==='gas'?'Gas volume at RTP / mL':'Mass / g',c.category==='indicator'?.1:liquid?state.sandbox.dosing.volume:c.state==='gas'?state.sandbox.dosing.gas:state.sandbox.dosing.mass,'number','min="0.001" max="1000" step="any" required')}${c.state==='aqueous'&&c.category!=='indicator'?field('concentration','Concentration / mol dm⁻³',state.sandbox.dosing.concentration,'number','min="0.001" max="2" step="any" required'):''}<p class="hint">Supported reactions resolve on addition. Unrecognised combinations are retained; no reaction prediction is made.</p>`,f=>{checkpoint();try{dose(v,c,Number(f.get('amount')),Number(f.get('concentration')||.1),elements);}catch(e){undo.pop();throw e;}});
-}
 function renderPracticals(){const list=practicals.filter(p=>(catalogFilter==='All'||p.strand===catalogFilter)&&(p.title+' '+p.description+' '+p.ref).toLowerCase().includes(filter.toLowerCase()));main.innerHTML=heading('Find your next “aha”.','18 interactive workspaces, from your first particles to your final practical.',`<span class="pill green">${state.practised.length} / 18 explored</span>`,'THE PRACTICAL COLLECTION')+`<div class="catalog-tools"><div class="chips">${['All','Principles','Inorganic','Physical','Organic'].map(c=>`<button class="chip ${catalogFilter===c?'active':''}" data-act="catalog-filter" data-id="${c}">${c}</button>`).join('')}</div><input id="catalog-search" class="search" placeholder="Search practicals or specification…" aria-label="Search practicals" value="${esc(filter)}"></div><div class="practical-grid" id="practical-grid">${list.map(practicalCard).join('')||'<div class="empty">No matching practicals.</div>'}</div>`;$('#catalog-search').oninput=e=>{filter=e.target.value;const pos=e.target.selectionStart;renderPracticals();$('#catalog-search').focus();$('#catalog-search').setSelectionRange(pos,pos);};}
 function simParams(){return state.params[practicalID]||(state.params[practicalID]=defaults(practicalID));}
 function renderPractical(){const p=practicals.find(p=>p.id===practicalID),params=simParams(),r=simulate(p.id,params);
@@ -874,23 +686,10 @@ function renderTools(){main.innerHTML=heading('Let the numbers make sense.','Sho
 }
 function addNote(title,body){const n={id:'note-'+Date.now()+'-'+Math.random().toString(36).slice(2,6),title,body,date:new Date().toISOString()};state.notes.unshift(n);noteID=n.id;if(state.notes.length>100)state.notes.pop();save();toast('Added to your lab notebook.');}
 function renderNotebook(){const n=state.notes.find(n=>n.id===noteID)||state.notes[0];noteID=n?.id;main.innerHTML=heading('Keep the thought.','Your observations, questions and “I wonder…” moments, saved together.',`<div class="row"><button class="btn" data-act="export-notes">Export notes ↗</button><button class="btn primary" data-act="new-note">＋ New entry</button></div>`,'THE LAB NOTEBOOK')+`<div class="notebook-layout"><section class="panel glass"><div class="panel-head"><h2>Entries</h2><span class="badge">${state.notes.length}</span></div><div class="panel-body" style="padding:10px">${state.notes.map(t=>`<button class="notebook-entry ${t.id===noteID?'active':''}" data-act="note" data-id="${t.id}"><h3>${esc(t.title||'Untitled entry')}</h3><small>${date(t.date)}</small></button>`).join('')||'<div class="empty">A clean page for a curious mind.</div>'}</div></section><section class="panel glass"><div class="panel-head"><h2>${n?'Your observation':'Start a new entry'}</h2>${n?'<button class="btn small danger" data-act="delete-note">Delete entry</button>':''}</div><div class="panel-body notebook-editor">${n?`<label class="mini-label" for="note-title">ENTRY TITLE</label><input id="note-title" value="${esc(n.title)}" maxlength="200"><div class="hint">${date(n.date)} · autosaved locally</div><label class="mini-label" style="display:block" for="note-body">METHOD, RESULTS & REFLECTIONS</label><textarea id="note-body" maxlength="100000" placeholder="What did you change? What did you observe? What does it tell you?">${esc(n.body)}</textarea><div class="row"><button class="btn small" data-act="export-entry">Export this entry</button><button class="btn small" data-act="print">Print</button></div>`:'<div class="empty">Record a practical, save a bench observation, or create a new note.</div>'}</div></section></div>`;if(n){$('#note-title').oninput=e=>{n.title=e.target.value;save();};$('#note-body').oninput=e=>{n.body=e.target.value;save();};}}
-function benchReport(){const v=selected(),a=appearance(v);return `${v.name}\n${fmt(v.volume)} mL · ${fmt(v.temp)}°C\nModel pH: ${a.ph===null?'outside model':fmt(a.ph)}\n\nContents:\n${v.contents.map(s=>`${s.chem.name} (${s.chem.formula}, ${s.chem.state}): ${s.n.toExponential(4)} mol`).join('\n')}\n\nObservation log:\n${v.events.map(e=>`${date(e.time)} — ${e.text}${e.equation?'\n'+e.equation:''}`).join('\n')}\n\nInterpretation:\n\nEvaluation / improvements:\n`;}
 function exportTrials(){const r=simulate(practicalID,simParams()),trials=state.trials[practicalID]||[],csvCell=v=>'"'+String(v).replace(/"/g,'""')+'"',rows=[['Trial','Date','Quantity','Value']];trials.forEach((t,i)=>t.metrics.forEach(([k,v])=>rows.push([i+1,t.date,k,v])));if(!trials.length)r.metrics.forEach(([k,v])=>rows.push(['Live model',new Date().toISOString(),k,v]));if(r.points){rows.push([],['Current curve',r.xLabel,r.yLabel]);r.points.forEach(([x,y])=>rows.push(['',x,y]));}download('chemlab-'+practicalID+'.csv',rows.map(row=>row.map(csvCell).join(',')).join('\r\n'),'text/csv');}
 const actions={
- nav:id=>{page=id;practicalID=null;quiz=null;location.hash=id;render();},close:()=>closeInlinePanel(),dose:doseDialog,'select-vessel':id=>{state.selected=Number(id);state.sandbox.selectedItem=null;save();render();},'shelf-filter':id=>{shelfFilter=id;render();},
- 'rename-vessel':()=>{const v=selected();formModal('Name this vessel',field('name','Name',v.name,'text','maxlength="80" required'),f=>{checkpoint();v.name=String(f.get('name')).trim()||v.name;});},
- 'empty-vessel':()=>{const v=selected();checkpoint();const n=makeVessel(v.id,v.shape);n.name=v.name;n.x=v.x;n.y=v.y;state.vessels[state.vessels.indexOf(v)]=n;save();render();},
- 'remove-vessel':()=>{const v=selected();mutate(()=>{detachLabObject(state,'vessel',v.id,true);state.vessels=state.vessels.filter(w=>w.id!==v.id);state.selected=state.vessels[0]?.id;});},
- undo:()=>{if(undo.length){const previous=JSON.parse(undo.pop());state.vessels=previous.vessels;state.sandbox=previous.sandbox||newSandbox();state.nextVessel=Math.max(0,...state.vessels.map(v=>v.id))+1;state.selected=state.vessels.some(v=>v.id===state.selected)?state.selected:state.vessels[0]?.id;save();render();toast('Restored the previous bench state.');}},
- heat:()=>{const v=selected();formModal('Controlled heating',`<p>Choose a target temperature. Liquids are held at 100°C in this simplified aqueous model; high-temperature organic behaviour is outside the model.</p>${field('temp','Temperature / °C',Math.min(v.volume?100:400,v.temp+40),'number','min="20" max="800" step="any" required')}<p class="hint">Heating can trigger supported carbonate decomposition (simplified 250°C threshold) or the ammonium test. It does not assert every thermal reaction or simulate a rate.</p>`,f=>{const t=Number(f.get('temp'));if(t>100&&v.volume>0)throw Error('Keep liquid samples at or below 100°C.');if(t<20||t>800)throw Error('Choose 20–800°C.');checkpoint();v.temp=t;v.heated=t>20;v.events.push({time:new Date().toISOString(),type:'heating',text:`Set temperature to ${t}°C (controlled-temperature model).`});resolve(v);});},
- transfer:()=>transferDialog(false),filter:()=>transferDialog(true),
- evaporate:()=>{const v=selected();formModal('Remove water by evaporation',`<p>Choose a water volume to remove. The model leaves non-volatile salts when an aqueous sample reaches dryness. For hydrated crystals, use Crystallise and cooling instead.</p>${field('ml','Water to remove / mL',v.volume/2,'number','min="0.001" step="any" required')}`,f=>{const n=Number(f.get('ml'));checkpoint();try{evaporate(v,n);}catch(e){undo.pop();throw e;}});},
- crystallise:()=>{const v=selected();formModal('Crystallise a dissolved salt',`<p>Partly remove solvent, then cool the solution to recover crystals. This bench shortcut uses a chosen recovery fraction; it does not predict solubility.</p>${field('recovery','Salt recovery / %',70,'number','min="1" max="90" step="1" required')}<p class="hint">Only dissolved salts are recovered. Copper sulfate is shown as the hydrated pentahydrate. Remaining solute stays in the mother liquor. Use the solubility workspace for saturation calculations.</p>`,f=>{const salts=v.contents.filter(s=>s.chem.category==='salt'&&s.chem.state==='aqueous');if(!salts.length||v.volume<=0)throw Error('Add a dissolved salt first.');const fraction=Number(f.get('recovery'))/100;if(fraction<=0||fraction>.9)throw Error('Choose a recovery between 1 and 90%.');checkpoint();salts.forEach(s=>{const n=s.n*fraction;s.n-=n;const hydrate=s.chem.formula==='CuSO4';const c={...s.chem,id:'product:'+s.chem.formula+(hydrate?'5H2O':''),name:s.chem.name+(hydrate?' pentahydrate crystals':' crystals'),formula:s.chem.formula+(hydrate?'·5H2O':''),state:'solid'};const existing=v.contents.find(s=>s.chem.id===c.id&&s.chem.state==='solid');if(existing)existing.n+=n;else v.contents.push({chem:c,n});});v.events.push({time:new Date().toISOString(),type:'crystallisation',text:`Recovered ${fmt(fraction*100)}% of dissolved salts as crystals (specified recovery, not a solubility prediction). Separate crystals by filtration.`});});},
- 'gas-test':()=>{const v=selected();modal('A gas leaves a clue',`<p>Products collected virtually at room conditions:</p>${Object.entries(v.gas).map(([g,n])=>`<div class="callout" style="margin-top:12px"><b>${chemText(g)} · ${fmt(n*24000)} mL</b><br>${esc(gasTests[g]?.[0]||'No syllabus test provided')}<br>${esc(gasTests[g]?.[1]||'Use a suitable analytical method.')}</div>`).join('')||'<div class="empty">No gas has formed in this vessel yet.</div>'}`);},
- history:()=>{const v=selected();modal('The story of this vessel',`<div class="timeline">${[...v.events].reverse().map(e=>`<p><small>${date(e.time)}</small>${esc(e.text)}${e.equation?'<br>'+chemText(e.equation):''}</p>`).join('')||'<p>No events recorded.</p>'}</div>`);},
- demo:()=>mutate(()=>{if(state.vessels.length>=24)throw Error('Remove a vessel before loading the example.');const v=makeVessel(state.nextVessel++);state.vessels.push(v);state.selected=v.id;dose(v,chemicals.find(c=>c.id==='cuso4'),50,.1,elements);dose(v,chemicals.find(c=>c.id==='fe'),.28,.1,elements);toast('Iron displaces copper: look for the copper deposit.');}),
- 'record-bench':()=>addNote('Bench observation · '+selected().name,benchReport()),
- export:()=>download('chemlab-workspace.json',JSON.stringify({...state,exportedAt:new Date().toISOString()},null,2),'application/json'),
+ nav:id=>{page=id;practicalID=null;quiz=null;location.hash=id;render();},close:()=>closeInlinePanel(),'toggle-sidebar':()=>{sidebarHidden=!sidebarHidden;try{localStorage.setItem('chemlab.sidebar.hidden',sidebarHidden?'1':'0');}catch{}syncSidebar();},
+ export:()=>{captureOriginalLab();download('chemlab-workspace.json',JSON.stringify({...state,exportedAt:new Date().toISOString()},null,2),'application/json');},
  import:()=>$('#import-file').click(),
  theme:()=>{state.theme=state.theme==='light'?'dark':'light';save();applySettings();},
  settings:()=>modal('Your workspace',`<p>Your experiments, notes and progress are stored in this browser on this device. Export a workspace backup to move them or keep a separate copy.</p><div class="row wrap"><button class="btn" data-act="export">Export workspace</button><button class="btn" data-act="import">Import workspace</button><a class="btn" href="Chemlab.html" download="Chemlab.html">Download offline app</a></div><label class="check"><input id="motion" type="checkbox" ${state.motion?'checked':''}>Reduce animation</label><p class="hint">The system’s reduced-motion preference is also respected.</p>`),
@@ -908,119 +707,47 @@ const actions={
  'delete-note':()=>formModal('Delete this notebook entry',`<p>Remove “${esc(state.notes.find(n=>n.id===noteID)?.title)}” from this device? Export it first if you need a copy.</p>`,()=>{state.notes=state.notes.filter(n=>n.id!==noteID);noteID=state.notes[0]?.id;}),
  'export-notes':()=>download('chemlab-notebook.txt',state.notes.map(n=>n.title+'\n'+date(n.date)+'\n\n'+n.body).join('\n\n'+'─'.repeat(50)+'\n\n')),
  'export-entry':()=>{const n=state.notes.find(n=>n.id===noteID);download('chemlab-entry.txt',n.title+'\n'+n.body);},print:()=>window.print(),
- about:()=>modal('Thoughtful chemistry. Clear boundaries.',`<p>Chemlab 2 is an independent study companion for Edexcel International GCSE Chemistry (linear 4CH1). Its 18 workspaces include the 12 named practical investigations, plus revision tools and original topic notes. It is not endorsed by Pearson or Apple.</p><p>The bench supports measured neutralisation, selected acid–metal, acid–oxide and carbonate reactions, selected precipitation, Group 1/calcium reactions with water, displacement, peroxide/MnO₂ catalysis, ammonium tests and carbonate decomposition. Unknown combinations are retained without a prediction. Organic reactions, electrolysis, rates and other specialised work use dedicated practical models.</p><p>Balanced equations conserve atoms. Stoichiometric calculations assume complete supported reactions. pH is an ideal 25°C charge-balance model for strong acids/alkalis, ethanoic acid, ammonia and selected salts; metal-ion hydrolysis, activities and many polyprotic equilibria are outside it. Heated mixtures do not get a temperature-corrected pH. Gases use 24 dm³/mol at RTP.</p><p>Rate constants, visual motion, crystallisation recovery and the model-solute curve are illustrative. The bench is aqueous-focused: organic solvent miscibility, pressure, detailed kinetics, secondary redox and all possible combinations are outside its scope. Check specific assumptions in each practical.</p><p><a href="${specURL}" target="_blank" rel="noopener">Pearson 4CH1 specification · Issue 3, September 2024 ↗</a></p><p>Lab work stays in browser storage, separated by your Chemlab username. Back up with Export workspace. Account sessions use the hosted server; RevisionCore accounts remain separate.</p>`),
- help:()=>modal('Your lab, a little easier.',`<p><b>1. Set up.</b> Add a beaker, flask, test tube or evaporating dish. Tap it to select it.</p><p><b>2. Measure.</b> Search the reagent library and tap or drag a reagent onto a vessel. Enter volume and concentration, or mass for solids.</p><p><b>3. Observe.</b> Supported chemistry resolves on addition. Read the quantities, equations and observations in Under the surface.</p><p><b>4. Explore.</b> Transfer, filter, heat, evaporate, crystallise or identify gas products. Undo restores the previous bench state.</p><p><b>5. Connect.</b> Open a practical for its own controls, graphs, methods and trials. Send results to your notebook or export CSV.</p><p><b>Keyboard:</b> use Tab and Enter for all controls. Press ? for help and Escape to dismiss a dialog. Back up your workspace from Settings.</p>`)
+ about:()=>modal('ChemLab · original chemistry, current study tools',`<p>The laboratory restores the original interface, JavaScript, 119-chemical catalogue and Python reaction engine from your supplied Chemlab-main.zip. Its original reaction rules and simplifications apply.</p><p>The practicals, revision, periodic table, calculations, notebook and separate Chemlab login remain part of this edition. Laboratory work and study progress save in this browser per username; export a backup to move them.</p><p>Use the top-left navigation button or the lab's cupboard button to hide a sidebar. Liquid-glass styling is applied separately from the chemistry code.</p>`),
+ help:()=>modal('Your laboratory',`<p>Use the original lab's Apparatus tab to place glassware, a burner, burette or supporting apparatus. Drag chemicals into a vessel and use the original pouring controls.</p><p>The lab toolbar saves or opens an original workspace. Its notes can be sent to the Studio notebook. The app's Export workspace includes both study progress and the original lab.</p><p>Toggle navigation at the top left. The lab header has separate cupboard and reaction-information toggles. The restored chemistry bench requires the local Python server or Render.</p>`)
 };
-function transferDialog(filtering){const v=selected(),others=state.vessels.filter(w=>w.id!==v.id);if(!others.length){toast('Add a receiving vessel first.');return;}formModal(filtering?'Separate solid from solution':'Pour a measured fraction',`<p>${filtering?'Filtrate collects in the receiving vessel; insoluble solids remain as residue in the source.':'This transfers a homogeneous fraction of the stirred mixture, including suspended solids.'}</p><div class="field"><label for="target">Receiving vessel</label><select id="target" name="target">${others.map(w=>`<option value="${w.id}">${esc(w.name)} · ${fmt(w.capacity-w.volume)} mL free</option>`).join('')}</select></div>${filtering?'':field('percent','Fraction of source mixture / %',50,'number','min="0.1" max="100" step="any" required')}`,f=>{const dest=state.vessels.find(w=>w.id===Number(f.get('target')));checkpoint();try{filtering?filterVessel(v,dest):transfer(v,dest,Number(f.get('percent')));}catch(e){undo.pop();throw e;}});}
-function sandboxSpawn(token,position){
- const [type,kind]=token.split(':');const viewport=$('#sandbox-viewport');if(!position){const w=viewport?.clientWidth||600,h=viewport?.clientHeight||650;position={x:(w/2-state.sandbox.panX)/state.sandbox.zoom-70,y:(h*.48-state.sandbox.panY)/state.sandbox.zoom-100};}
- if(type==='vessel'){
-  if(!['beaker','flask','tube','dish'].includes(kind))return;if(state.vessels.length>=24)throw Error('This workspace holds up to 24 vessels.');checkpoint();
-  const v=makeVessel(state.nextVessel++,kind);v.x=Math.max(0,Math.min(1440,position?.x??(260+state.vessels.length%5*190)));v.y=Math.max(0,Math.min(760,position?.y??220));state.vessels.push(v);state.selected=v.id;
- }else if(type==='apparatus'&&apparatusKinds[kind]){
-  if(state.sandbox.items.length>=30)throw Error('This workspace holds up to 30 apparatus items.');checkpoint();state.sandbox.items.push({id:state.sandbox.nextId++,kind,x:Math.max(0,Math.min(1440,position?.x??600)),y:Math.max(0,Math.min(760,position?.y??250)),on:false,targetId:null,sourceId:null,remainingMl:0,deliveredMl:0,concentration:.1,elapsed:0});
- }else return;
- normaliseSandbox(state);if(type==='apparatus')state.sandbox.selectedItem=state.sandbox.items.at(-1).id;else state.sandbox.selectedItem=null;const created=type==='vessel'?state.vessels.at(-1):state.sandbox.items.at(-1),snap=findLabSnap(state,type==='vessel'?'vessel':'apparatus',created.id,90);if(snap?.kind==='attach')commitLabSnap(state,type==='vessel'?'vessel':'apparatus',created.id,snap);save();closeInlinePanel();render();
-}
-function sandboxDrop(id,equipmentId,position){
- if(id.startsWith('vessel:')||id.startsWith('apparatus:')){sandboxSpawn(id,position);return;}
- if(!chemicals.some(c=>c.id===id))return;
- if(equipmentId){const item=state.sandbox.items.find(i=>i.id===equipmentId);try{directBuretteFill(item,id);}catch(error){toast(error.message);}return;}
- if(position){sandboxSpawn('apparatus:bottle',position);const item=state.sandbox.items.at(-1);item.loadedId=id;state.sandbox.selectedItem=item.id;save();render();}
-}
-function apparatusItem(id){return state.sandbox.items.find(i=>i.id===Number(id));}
-function apparatusMenu(id){const item=apparatusItem(id);if(!item)return;state.sandbox.selectedItem=item.id;save();render();}
-function apparatusConnect(id){
- const item=apparatusItem(id);if(!item)return;if(!state.vessels.length){toast('Add a vessel first.');return;}
- const options=selectedId=>state.vessels.map(v=>`<option value="${v.id}" ${v.id===selectedId?'selected':''}>${esc(v.name)}</option>`).join('');
- formModal('Connect '+apparatusKinds[item.kind].name,`${item.kind==='funnel'?`<div class="field"><label for="source">Source mixture</label><select id="source" name="source">${options(item.sourceId)}</select></div>`:''}<div class="field"><label for="receiver">${item.kind==='funnel'?'Filtrate receiver':'Connected vessel'}</label><select id="receiver" name="target">${options(item.targetId||selected()?.id)}</select></div>`,form=>{const target=Number(form.get('target')),source=Number(form.get('source'));if(item.kind==='funnel'&&source===target)throw Error('Choose a different receiver from the source.');checkpoint();attachApparatusToVessel(item,state.vessels.find(v=>v.id===target));if(item.kind==='funnel')item.sourceId=source;});
-}
-function buretteLoad(id,reagentId){
- const item=apparatusItem(id);if(!item||item.kind!=='burette')return;
- const choices=chemicals.filter(c=>c.state==='aqueous'&&c.category!=='indicator'||c.id==='water');if(reagentId&&!choices.some(c=>c.id===reagentId)){toast('A burette holds aqueous solutions or water.');return;}
- formModal('Fill the burette',`<div class="field"><label for="burette-solution">Solution</label><select id="burette-solution" name="reagent">${choices.map(c=>`<option value="${c.id}" ${c.id===(reagentId||item.loadedId||'naoh')?'selected':''}>${esc(c.name)}</option>`).join('')}</select></div>${field('volume','Load volume / mL',50,'number','min="0.1" max="50" step="any" required')}${field('concentration','Concentration / mol dm⁻³',state.sandbox.dosing.concentration,'number','min="0.001" max="2" step="any" required')}`,form=>{const amount=Number(form.get('volume')),conc=Number(form.get('concentration'));if(!Number.isFinite(amount)||!Number.isFinite(conc)||amount<=0||amount>50||conc<=0||conc>2)throw Error('Choose 0–50 mL and a concentration up to 2 mol/dm³.');checkpoint();item.loadedId=form.get('reagent');item.remainingMl=amount;item.deliveredMl=0;item.concentration=conc;});
-}
-Object.assign(actions,{
- 'shelf-tab':id=>{benchShelfTab=id;shelfQuery='';render();},
- 'shelf-add':id=>sandboxSpawn(id),
- 'add-vessel':()=>{benchShelfTab='apparatus';shelfQuery='';render();$('#reagents')?.scrollIntoView?.({block:'nearest'});},
- 'apparatus-menu':apparatusMenu,'apparatus-connect':apparatusConnect,
- 'apparatus-toggle':id=>{const item=apparatusItem(id);if(!item)return;checkpoint();item.on=!item.on;save();render();},
- 'apparatus-remove':id=>{checkpoint();detachLabObject(state,'apparatus',Number(id),true);state.sandbox.items=state.sandbox.items.filter(i=>i.id!==Number(id));state.sandbox.items.forEach(i=>{if(i.mountedId===Number(id))i.mountedId=null;});closeInlinePanel();save();render();},
- 'burette-load':id=>buretteLoad(id),
- 'bottle-dose':id=>{const item=apparatusItem(id);toast(directBenchDose(item?.loadedId));save();render();},
- 'apparatus-detach':id=>{checkpoint();detachLabObject(state,'apparatus',Number(id),true);save();render();},
- 'burette-dose':token=>{const [id,ml]=token.split(':'),item=apparatusItem(id),amount=Number(ml);if(!item?.loadedId||amount>item.remainingMl+1e-9)throw Error('Refill the burette before dispensing this volume.');const receiver=state.vessels.find(v=>v.id===item.targetId)||nearestVessel(state,item);if(!receiver)throw Error('Connect a receiving vessel or position one below the burette.');if(receiver.volume+amount>receiver.capacity)throw Error('The receiving vessel would overflow.');checkpoint();dose(receiver,chemicals.find(c=>c.id===item.loadedId),amount,item.concentration,elements);item.targetId=receiver.id;item.remainingMl=Math.max(0,item.remainingMl-amount);item.deliveredMl+=amount;state.selected=receiver.id;save();render();},
- 'funnel-filter':id=>{const item=apparatusItem(id),source=state.vessels.find(v=>v.id===item?.sourceId),receiver=state.vessels.find(v=>v.id===item?.targetId);if(!source||!receiver){apparatusConnect(id);return;}checkpoint();try{filterVessel(source,receiver);}catch(e){undo.pop();throw e;}save();render();toast('Filtrate collected in '+receiver.name+'. Solid residue stays in '+source.name+'.');},
- 'stand-mount':id=>{const item=apparatusItem(id),burettes=state.sandbox.items.filter(i=>i.kind==='burette');if(!burettes.length)throw Error('Add a burette first.');formModal('Mount a burette',`<div class="field"><label for="mounted">Burette</label><select id="mounted" name="mounted">${burettes.map(b=>`<option value="${b.id}">Burette ${b.id}</option>`).join('')}</select></div>`,form=>{const held=apparatusItem(form.get('mounted'));checkpoint();if(!commitLabSnap(state,'apparatus',held.id,{kind:'attach',x:item.x+80,y:item.y+10,role:'clamp',parent:'a:'+item.id,child:'a:'+held.id}))throw Error('Move the stand away from the edge to leave room for its apparatus.');});},
- 'stopwatch-reset':id=>{const item=apparatusItem(id);checkpoint();item.elapsed=0;save();render();},
- 'zoom-in':()=>{const v=$('#sandbox-viewport');zoomSandbox(state,1.15,v?.clientWidth||600,v?.clientHeight||650);save();render();},
- 'zoom-out':()=>{const v=$('#sandbox-viewport');zoomSandbox(state,1/1.15,v?.clientWidth||600,v?.clientHeight||650);save();render();},
- 'sandbox-home':()=>{const v=$('#sandbox-viewport');fitSandbox(state,v?.clientWidth||600,v?.clientHeight||650);save();render();},
- 'clear-bench':()=>{checkpoint();state.vessels=[];state.sandbox=newSandbox();state.selected=null;state.nextVessel=1;save();render();},
- 'sandbox-help':()=>modal('A bench you can make your own',`<p><b>Place:</b> drag glassware or apparatus from the shelf. Drop a reagent in empty space to place a bottle; drag it over a vessel to add a measured dose.</p><p><b>Arrange:</b> drag any object. Drag the empty canvas to pan; use + and − to zoom. Focus an object and use arrow keys for precise placement; Shift+Enter snaps or pours at a compatible target, and Escape detaches it. Use the wheel to zoom at the pointer.</p><p><b>Connect:</b> bring a thermometer, funnel or gas syringe to a vessel; place a vessel above a burner or on a balance. Burettes snap into stand clamps; receivers fit under their taps. A marker shows a compatible connection before release.</p><p><b>Measure:</b> fill a burette and deliver 0.1, 1 or 5 mL. Link a filter funnel to separate a source into a receiving vessel. Start and pause the stopwatch.</p><p><b>Observe:</b> supported reactions resolve on addition. Burners heat at 3°C per lab second. Gas volumes, mass readings and temperatures use the same chemistry inventory as the inspector.</p><p>All chemistry model boundaries still apply. Connections use geometric attachment points; the app does not calculate gas pressure, boil organic mixtures or simulate every apparatus configuration.</p>`)
-});
-
 document.addEventListener('click',e=>{const btn=e.target.closest('[data-act]');if(btn&&!btn.disabled){try{actions[btn.dataset.act]?.(btn.dataset.id);}catch(e){toast(e.message);}}});
-document.addEventListener('change',e=>{if(e.target.dataset?.doseSetting){const key=e.target.dataset.doseSetting,value=Number(e.target.value),limits={volume:[.001,500],mass:[.001,100],concentration:[.001,2],transfer:[.1,100]};if(limits[key]&&Number.isFinite(value)&&value>=limits[key][0]&&value<=limits[key][1]){state.sandbox.dosing[key]=value;save();}else{e.target.value=state.sandbox.dosing[key];toast('Enter a value within the displayed range.');}}if(e.target.id==='motion'){state.motion=e.target.checked;save();applySettings();}});
-$('#import-file').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>1500000)throw Error('Workspace files must be under 1.5 MB.');const candidate=validate(JSON.parse(await file.text()));formModal('Restore this workspace',`<p>Replace this device’s workspace with ${candidate.vessels.length} vessels and ${candidate.notes.length} notebook entries? Export the current workspace first if you want to keep it.</p>`,()=>{state=candidate;undo=[];page='bench';save();});}catch(e){toast('Could not import: '+e.message);}e.target.value='';};
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&dialog.open){e.preventDefault();closeInlinePanel();(page==='bench'?$('#sandbox-viewport'):main)?.focus();return;}if(e.key==='?'&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)){e.preventDefault();actions.help();}});
+document.addEventListener('change',e=>{if(e.target.id==='motion'){state.motion=e.target.checked;save();applySettings();}});
+$('#import-file').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>1500000)throw Error('Workspace files must be under 1.5 MB.');const candidate=validate(JSON.parse(await file.text()));formModal('Restore this workspace',`<p>Replace this device’s workspace with ${candidate.vessels.length} vessels and ${candidate.notes.length} notebook entries? Export the current workspace first if you want to keep it.</p>`,()=>{state=candidate;labFrameProfile=null;page='bench';save();});}catch(e){toast('Could not import: '+e.message);}e.target.value='';};
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&dialog.open){e.preventDefault();closeInlinePanel();main?.focus();return;}if(e.key==='?'&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)){e.preventDefault();actions.help();}});
 function route(){const [p,id]=location.hash.slice(1).split('/');if(NAV.some(([n])=>n===p)){page=p;practicalID=p==='practicals'&&practicals.some(x=>x.id===id)?id:null;quiz=null;render();}}
 window.addEventListener('hashchange',route);applySettings();route();render();
 
-let activeProfile=null;
 startAuth({onUser:(user,options={})=>{
  if(options.error){toast(options.error);return;}
- if(options.logout){save();activeProfile=null;KEY='chemlab.studio.v2';state=fresh();undo=[];page='bench';render();}
+ if(options.logout){captureOriginalLab();save();labSessionReady=false;labFrameProfile=null;const host=$('#original-lab-view');if(host)host.innerHTML='';activeProfile=null;KEY='chemlab.studio.v2';state=fresh();page='bench';render();}
  else if(user&&activeProfile!==user.username.toLowerCase()){
+  labSessionReady=true;labFrameProfile=null;
   activeProfile=user.username.toLowerCase();KEY='chemlab.studio.v2:'+activeProfile;
   try{const saved=localStorage.getItem(KEY);state=saved?validate(JSON.parse(saved)):fresh();}catch{state=fresh();toast('The saved workspace could not be restored. Import a backup if needed.');}
-  undo=[];noteID=state.notes[0]?.id;page='bench';render();
+  noteID=state.notes[0]?.id;page='bench';render();
  }
+ if(options.offline){labSessionReady=true;render();}
  const button=$('#account-button');if(button){button.textContent=user?'Sign out':'Sign in';button.title=user?'Signed in as '+user.username:'Chemlab account';}
  const avatar=$('.avatar');if(avatar){avatar.textContent=user?user.username[0].toUpperCase():'C';avatar.title=user?user.username:'Offline learner';}
 }});
-if(typeof setInterval==='function')setInterval(()=>{
- if(document.body.classList.contains('auth-locked'))return;
- if(tickSandbox(state,1)){save();if(page==='bench'&&!dialog.open&&!['INPUT','SELECT','TEXTAREA'].includes(document.activeElement.tagName)&&!$('#sandbox-viewport')?.classList.contains('is-dragging'))render();}
-},1000);
 
-function renderMeasurementControls(){
- const d=state.sandbox.dosing;
- $('#measurement-controls').innerHTML=`<div class="mini-label">Measured additions</div><div class="bench-measures">${[['volume','Liquid / mL',.001,500],['mass','Solid / g',.001,100],['concentration','Concentration / mol dm⁻³',.001,2],['transfer','Pour mixture / %',.1,100]].map(([key,label,min,max])=>`<label>${label}<input type="number" id="bench-${key}" data-dose-setting="${key}" value="${d[key]}" min="${min}" max="${max}" step="any"></label>`).join('')}</div><p class="hint">Set a dose here. Drag a bottle over a vessel to add it. Drag liquid mixtures over another vessel to pour.</p>`;
+function postOriginalLab(type,extra={}){const frame=$('#original-lab-frame');frame?.contentWindow?.postMessage({source:'chemlab-studio',type,profile:activeProfile||'guest',theme:state.theme,motion:state.motion,...extra},location.origin);}
+function captureOriginalLab(){const frame=$('#original-lab-frame');try{if(frame?.contentWindow?.serializeWorkspace){state.originalLab=validateOriginalWorkspace(frame.contentWindow.serializeWorkspace());save();}}catch{toast('Export a backup from the lab toolbar if this workspace could not be captured.');}}
+function syncSidebar(){document.body.classList.toggle('sidebar-hidden',sidebarHidden);const button=$('#sidebar-toggle');if(button){button.setAttribute('aria-expanded',String(!sidebarHidden));button.setAttribute('aria-label',sidebarHidden?'Show navigation sidebar':'Hide navigation sidebar');button.title=sidebarHidden?'Show navigation sidebar':'Hide navigation sidebar';}}
+function renderBench(){
+ const host=$('#original-lab-view')||main;
+ if(!labSessionReady){host.innerHTML='<div class="original-lab-notice"><h1>Original chemistry lab</h1><p>Sign in to open your laboratory.</p></div>';return;}
+ if(location.protocol==='file:'){host.innerHTML='<section class="panel glass original-lab-notice"><h1>Original chemistry lab</h1><p>The original lab uses its Python reaction engine. Run <code>python app.py</code>, then open <a href="http://127.0.0.1:5050">http://127.0.0.1:5050</a>, or use your Render website. Practicals, revision, calculations and the notebook remain available offline.</p></section>';return;}
+ if(labFrameProfile!==KEY||!$('#original-lab-frame')){host.innerHTML='<iframe id="original-lab-frame" class="original-lab-frame" src="/original-lab/" title="Original ChemLab chemistry laboratory" allow="fullscreen" referrerpolicy="same-origin"></iframe>';labFrameProfile=KEY;}
 }
-function directBenchDose(reagentId,vesselId=selected()?.id,record=true){
- const c=chemicals.find(c=>c.id===reagentId),v=state.vessels.find(v=>v.id===vesselId);if(!c||!v)throw Error('Place a receiving vessel first.');
- const d=state.sandbox.dosing,amount=c.category==='indicator'?.1:c.state==='solid'?d.mass:c.state==='gas'?d.gas:d.volume;
- if(record)checkpoint();try{dose(v,c,amount,d.concentration,elements);}catch(error){if(record)undo.pop();throw error;}
- state.selected=v.id;state.sandbox.selectedItem=null;return `${fmt(amount)} ${c.state==='solid'?'g':'mL'} ${c.name} added to ${v.name}.`;
-}
-function directBuretteFill(item,reagentId,record=true,refresh=true){
- const c=chemicals.find(c=>c.id===reagentId);if(!item||item.kind!=='burette'||!c||!(c.state==='aqueous'&&c.category!=='indicator'||c.id==='water'))throw Error('Fill a burette with an aqueous solution or water.');
- if(record)checkpoint();item.loadedId=c.id;item.remainingMl=50;item.deliveredMl=0;item.concentration=state.sandbox.dosing.concentration;
- state.sandbox.selectedItem=item.id;if(refresh){save();render();}toast(`Burette filled with 50 mL ${c.name}.`);
-}
-function applyDirectDrop(snap){
- if(snap.kind==='fill'){const bottle=apparatusItem(snap.bottleId);directBuretteFill(apparatusItem(snap.itemId),bottle?.loadedId,false,false);}
- if(snap.kind==='dose'){const item=apparatusItem(snap.itemId);toast(directBenchDose(item?.loadedId,snap.vesselId,false));}
- if(snap.kind==='pour'||snap.kind==='filter'){
-  const source=state.vessels.find(v=>v.id===snap.sourceId),receiver=state.vessels.find(v=>v.id===snap.vesselId);if(!source||!receiver||source===receiver)throw Error('Use two different vessels.');
-  if(snap.kind==='filter'){filterVessel(source,receiver);const funnel=apparatusItem(snap.itemId);if(funnel)funnel.sourceId=source.id;}
-  else transfer(source,receiver,state.sandbox.dosing.transfer);
-  state.selected=receiver.id;state.sandbox.selectedItem=null;toast(snap.kind==='filter'?'Filtrate collected; residue stays in the source.':`${fmt(state.sandbox.dosing.transfer)}% of the mixture poured into ${receiver.name}.`);
- }
-}
-function renderApparatusInspector(item){
- const kind=item.kind,v=state.vessels.find(v=>v.id===item.targetId),c=chemicals.find(c=>c.id===item.loadedId);
- const tips={burner:'Drag a vessel above the flame until the snap marker appears. Light or extinguish the burner with its on-bench control.',burette:'Drag into a stand clamp, then place a receiver below its tap. Drop a solution from the library onto the burette to fill it.',syringe:'Bring the syringe beside a gas-producing vessel to connect its delivery tube.',funnel:'Fit the funnel into a receiving vessel. Drag a mixture above the funnel to filter it.',thermometer:'Drag the bulb into a vessel to read its live temperature.',balance:'Place a vessel on the weighing pan. The reading includes the solid portion of the sample.',stand:'Bring a burette close to the clamp. Move the stand to carry the assembled equipment.',stopwatch:'Start, pause and reset directly on the bench.',bottle:'Drag this bottle over a vessel. The measured addition uses the settings above.'};
- $('#inspector').innerHTML=`<div class="apparatus-details"><div class="mini-label">${esc(kind==='bottle'?c?.name||'Reagent bottle':apparatusKinds[kind].name)}</div><p class="hint">${tips[kind]}</p>${v?`<p class="connection-readout">Connected · ${esc(v.name)}</p>`:''}<div class="row wrap inspector-actions">${['burner','stopwatch'].includes(kind)?`<button class="btn small" data-act="apparatus-toggle" data-id="${item.id}">${item.on?'Pause / switch off':kind==='burner'?'Light burner':'Start timer'}</button>`:''}${kind==='stopwatch'?`<button class="btn small" data-act="stopwatch-reset" data-id="${item.id}">Reset timer</button>`:''}${kind==='burette'?`<p class="hint">${esc(c?.name||'Empty')} · ${fmt(item.remainingMl)} mL remaining · ${fmt(item.deliveredMl)} mL delivered</p><button class="btn small" data-act="burette-load" data-id="${item.id}">Adjust filling</button>${[.1,1,5].map(ml=>`<button class="btn small" data-act="burette-dose" data-id="${item.id}:${ml}">${ml} mL</button>`).join('')}`:''}${kind==='bottle'?`<button class="btn small" data-act="bottle-dose" data-id="${item.id}">Add to selected vessel</button>`:''}${!['bottle','stand','stopwatch'].includes(kind)?`<button class="btn small" data-act="apparatus-connect" data-id="${item.id}">Snap to a vessel…</button>`:''}${kind==='stand'?`<button class="btn small" data-act="stand-mount" data-id="${item.id}">Choose burette…</button>`:''}<button class="btn small" data-act="apparatus-detach" data-id="${item.id}">Detach</button><button class="btn small danger" data-act="apparatus-remove" data-id="${item.id}">Remove</button></div></div>`;
-}
-function attachApparatusToVessel(item,v){
- const k=item.kind,a='a:'+item.id,b='v:'+v.id;
- const rules={burner:{x:v.x+30,y:v.y+178,role:'heat',parent:a,child:b},balance:{x:v.x,y:v.y+150,role:'weigh',parent:a,child:b},burette:{x:v.x+37,y:v.y-245,role:'receiver',parent:a,child:b},thermometer:{x:v.x+45,y:v.y+10,role:'probe',parent:b,child:a},funnel:{x:v.x+28,y:v.y-118,role:'funnel',parent:b,child:a},syringe:{x:v.x+160,y:v.y-50,role:'gas',parent:b,child:a}};
- const rule=rules[k];if(!rule)throw Error('This apparatus does not attach to a vessel.');
- const dx=rule.x<0?-rule.x:rule.x>1440?1440-rule.x:0,dy=rule.y<0?-rule.y:rule.y>760?760-rule.y:0;
- if(dx||dy){const ox=v.x,oy=v.y;moveLabObject(state,'vessel',v.id,v.x+dx,v.y+dy);rule.x+=v.x-ox;rule.y+=v.y-oy;}
- if(!commitLabSnap(state,'apparatus',item.id,{kind:'attach',...rule}))throw Error('Detach the existing assembly before making this connection.');
-}
+window.addEventListener('message',event=>{
+ const frame=$('#original-lab-frame'),data=event.data;
+ if(!labSessionReady||!frame?.contentWindow||event.source!==frame.contentWindow||event.origin!==location.origin||data?.source!=='chemlab-original')return;
+ if(data.type==='ready'){postOriginalLab('init',{workspace:state.originalLab});return;}
+ if(data.profile!==(activeProfile||'guest'))return;
+ if(data.type==='workspace')try{state.originalLab=validateOriginalWorkspace(data.workspace);save();}catch{toast('The laboratory returned an invalid save. Export a backup from its toolbar.');}
+ if(data.type==='theme'){state.theme=data.theme==='dark'?'dark':'light';save();applySettings();}
+ if(data.type==='note'&&typeof data.text==='string')addNote('Original lab notes',data.text.slice(0,100000));
+ if(data.type==='error'&&typeof data.message==='string')toast(data.message.slice(0,300));
+});
 </script></body></html>
