@@ -1,6 +1,6 @@
-# Chemlab Studio 2.4.0 — original lab, liquid glass
+# Chemlab Studio 2.5.0 — fitted laboratory and glass dock
 
-The chemistry bench restores the supplied **Chemlab-main.zip** implementation. Its JavaScript, base CSS, 119-chemical catalogue and Python reaction engine are copied byte-for-byte; their original SHA-256 hashes are recorded in `original_lab/source-manifest.json`. The HTML retains the original lab structure, with asset paths resolved for this server and a separate integration script and glass stylesheet.
+The chemistry bench restores the supplied **Chemlab-main.zip** implementation. Its JavaScript, base CSS, 119-chemical catalogue and Python reaction engine are copied byte-for-byte; their original SHA-256 hashes are recorded in `original_lab/source-manifest.json`. A separate integration script and glass stylesheet provide the responsive layout and toolbar while retaining the original chemistry behaviour.
 
 The current separate Chemlab login, 18 practical workspaces, 34 revision topics, retrieval practice, 118-element periodic table, calculations and Studio notebook remain available. The original lab is isolated from the Studio styles and code so its apparatus and reaction behaviour come from the original source.
 
@@ -14,10 +14,12 @@ Open `http://127.0.0.1:5050` and create or sign into a Chemlab account. Local de
 
 Include **`original_lab/` and all of `dist/`** when uploading the project. `original_lab/data/chemicals.json` is application data and must be committed. Only the root `/data/` directory is ignored because it contains local account records.
 
-## Bench and sidebars
+## Laboratory and navigation dock
 
 - The original Apparatus and Chemicals tabs, glassware, burners, burettes, pouring controls, heating, evaporation, reaction information, notes and workspace save/open controls are restored.
-- The button at the top left of the Studio hides or shows navigation. In the lab header, separate buttons hide or show the chemical cupboard and the reaction-information panel. Their hidden states are remembered on this device.
+- The laboratory fills the available screen height, including on smaller laptops and phones. Its bench opens at the visible size and expands its scrollable area when apparatus is placed beyond it. Search and filters are inside the cupboard. On smaller screens, cupboard and information panels overlay the bench.
+- The compact glass navigation dock has a sliding selection highlight. Drag its grip to move it; double-click the grip to reset it to the bottom centre. With the grip focused, use arrow keys (Shift for larger steps), Home or Escape. Its position is remembered on this device. The top-left Studio button hides or shows the dock.
+- In the lab header, separate buttons hide or show the chemical cupboard and the reaction-information panel. Their hidden states are remembered on this device. The first button in the lab tools returns to the start of the bench.
 - Liquid-glass styling adds translucent surfaces, blurred backgrounds, bright edges and soft highlights. Light/dark themes stay coordinated between the Studio and lab. Reduced-motion preferences are respected.
 - Switching to another Studio section preserves the running laboratory frame. Lab notes can be sent to the Studio notebook.
 
@@ -49,10 +51,13 @@ The separate practical workspaces and calculators retain their existing models a
 - `original_lab/reaction_engine.py` and `data/chemicals.json`: unchanged original engine and catalogue.
 - `original_api.py`: WSGI request adapter for `/api/react` and `/api/chemicals`.
 - `dist/original-lab/bridge.js` and `liquid-glass.css`: account-scoped saves, safe workspace integration, sidebar controls and appearance.
+- `dist/dock.js` and `dock.css`: movable navigation, keyboard controls and fitted Studio layout.
 - Other `dist/` modules: the current practicals, learning, periodic table, calculations, notebook and account screens.
 
 This is the deployment package. Development tests, their report and Node build files have been removed; all runtime source and the prebuilt offline edition are included. No Node build step is required.
 
-Before packaging, **81 automated checks passed: 41 JavaScript and 40 Python checks.** They covered source identity, original reaction API passthrough, account behaviour, workspace isolation, sidebar preferences, persistent lab embedding, study screens, calculation models and HTTP/deployment behaviour.
+The preceding 2.4.0 edition passed **81 automated checks: 41 JavaScript and 40 Python checks.** They covered source identity, original reaction API passthrough, account behaviour, workspace isolation, sidebar preferences, persistent lab embedding, study screens, calculation models and HTTP/deployment behaviour.
 
 Browser-preview access was previously declined by the permission gate. Real-browser visual/responsive QA, drag gestures, native downloads and file-picker behaviour remain unverified. Gist responses are mocked in tests; this update has not been deployed to Render or tested against a live Gist from this session. The original Downloads ZIP is untouched.
+
+The 2.5.0 layout update was checked with JavaScript parsing, simulated dock and lab integration interactions, server and asset smoke checks, original-source hashes and archive integrity checks. These checks do not substitute for browser visual testing.

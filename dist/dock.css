@@ -1,0 +1,53 @@
+/* The bench occupies the space between the command bar and floating dock. */
+:root{--dock-clearance:94px}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",Inter,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+.shell,body.sidebar-hidden .shell{margin:0 auto;padding:0 20px calc(var(--dock-clearance) + env(safe-area-inset-bottom));max-width:1840px;transition:none}
+.topbar{height:60px;min-height:60px;margin-top:12px;padding:0 16px;border-radius:20px;gap:12px}
+.breadcrumbs{min-width:0;white-space:nowrap}
+.breadcrumbs .muted{overflow:hidden;text-overflow:ellipsis}
+.top-actions{flex-shrink:0}
+body.sidebar-hidden{--dock-clearance:12px}
+body.is-original-bench{height:100dvh;min-height:0;overflow:hidden}
+body.is-original-bench .shell{height:100%;min-height:0;max-width:none;display:flex;flex-direction:column;gap:10px;padding-bottom:calc(var(--dock-clearance) + env(safe-area-inset-bottom))}
+.is-original-bench #main{flex:1;min-height:0;display:flex;flex-direction:column}
+.is-original-bench #original-lab-view{flex:1;min-height:0;display:flex;padding:0;overflow:hidden;border-radius:22px}
+.is-original-bench .original-lab-frame,.sidebar-hidden.is-original-bench .original-lab-frame{width:100%;height:100%;min-height:0;flex:1;border-radius:22px}
+.is-original-bench #inline-host:empty{display:none}
+.is-original-bench #inline-host{max-height:40dvh;overflow:auto;flex-shrink:0;border-radius:20px}
+.original-lab-notice{overflow:auto}
+body.auth-locked.is-original-bench{height:auto;min-height:100dvh;overflow:auto}
+.auth-locked .app-dock.sidebar,body.auth-locked.is-original-bench .shell{display:none}
+.app-dock.sidebar{
+ position:fixed;inset:auto;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));width:max-content;max-width:calc(100vw - 16px);height:72px;
+ flex-direction:row;align-items:center;gap:6px;padding:7px 9px 7px 4px;border-radius:25px;z-index:70;overflow:visible;
+ background:linear-gradient(155deg,#ffffffce,#eef4f699 55%,#ffffffb3);border:1px solid #fffffff0;
+ box-shadow:0 12px 40px #253c6226,0 2px 7px #253c6210,inset 0 1px 0 #fff,inset 0 -1px 0 #ffffff80;
+ -webkit-backdrop-filter:blur(40px) saturate(190%);backdrop-filter:blur(40px) saturate(190%);
+ transform:translateX(var(--dock-offset,-50%));transition:opacity .2s,visibility .2s,box-shadow .2s;isolation:isolate;
+}
+.app-dock.sidebar:after{background:linear-gradient(115deg,#ffffff70,transparent 35%,transparent 65%,#ffffff40);z-index:-1}
+.app-dock #nav{position:relative;display:flex;flex-direction:row;align-items:center;justify-content:center;gap:4px;width:auto;margin:0}
+.app-dock #nav:before{content:"";position:absolute;left:var(--active-left,0);top:0;bottom:0;width:var(--active-width,62px);border-radius:18px;background:linear-gradient(145deg,#ffffffeb,#ffffff70);box-shadow:inset 0 1px 0 #fff,0 2px 7px #29476612;border:1px solid #ffffffcf;transition:left .3s cubic-bezier(.2,.8,.2,1),width .3s;pointer-events:none}
+.app-dock .nav-btn{position:relative;flex:0 0 62px;width:62px;height:56px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;margin:0;padding:6px 2px;color:var(--muted);border-radius:18px;background:transparent;border:0;box-shadow:none;transition:color .18s}
+.app-dock .nav-btn.active{color:var(--accent);background:transparent;box-shadow:none}
+.app-dock .nav-btn svg{width:23px;height:23px;stroke-width:1.55;transition:transform .25s cubic-bezier(.2,.8,.2,1);transform-origin:center bottom}
+.app-dock .nav-label{display:block;font-size:9px;font-weight:550;line-height:1.2;letter-spacing:0;white-space:nowrap}
+.app-dock .nav-btn.active:after{content:"";position:absolute;bottom:1px;width:3px;height:3px;background:currentColor;border-radius:50%}
+.dock-handle,.dock-help{display:grid;place-items:center;background:transparent;border:0;box-shadow:none;color:var(--muted);flex:none;border-radius:12px}
+.dock-handle{width:21px;height:48px;cursor:grab;touch-action:none;user-select:none}
+.dock-help{width:34px;height:42px;margin-left:3px;border-left:1px solid var(--line);border-radius:0 13px 13px 0}
+.dock-help svg{width:21px;height:21px}
+.dock-dragging .dock-handle{cursor:grabbing}
+.app-dock.dock-dragging{box-shadow:0 20px 60px #253c6238,inset 0 1px 0 white;user-select:none}
+body.sidebar-hidden .app-dock.sidebar{transform:translateX(var(--dock-offset,-50%)) translateY(16px);opacity:0;visibility:hidden;pointer-events:none}
+.dark .app-dock.sidebar{background:linear-gradient(155deg,#34485abf,#203243b3 60%,#334759b8);border-color:#c6e1ff35;box-shadow:0 12px 40px #0005,inset 0 1px 0 #ffffff30}
+.dark .app-dock #nav:before{background:linear-gradient(145deg,#ffffff20,#ffffff0a);border-color:#ffffff24;box-shadow:inset 0 1px 0 #ffffff30,0 2px 7px #0001}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){.app-dock .nav-btn:hover svg,.app-dock .nav-btn:focus-visible svg{transform:translateY(-3px) scale(1.12)}.app-dock .nav-btn:hover,.dock-help:hover{color:var(--accent)}}
+@media(max-width:760px){.shell,body.sidebar-hidden .shell{padding-left:10px;padding-right:10px}.topbar{height:54px;min-height:54px;margin-top:8px;padding:0 10px;border-radius:18px}.breadcrumbs>.muted,.breadcrumbs>.divider,.save-status,.top-actions>.avatar{display:none}.breadcrumbs{gap:8px}.top-actions{gap:6px}.is-original-bench #original-lab-view,.is-original-bench .original-lab-frame,.sidebar-hidden.is-original-bench .original-lab-frame{border-radius:18px}.top-actions #account-button{font-size:11px;padding:7px 9px}}
+@media(max-width:540px){:root{--dock-clearance:79px}.app-dock.sidebar{height:60px;border-radius:21px;gap:2px;padding:5px 5px 5px 2px}.app-dock #nav{gap:2px}.app-dock .nav-btn{width:40px;flex-basis:40px;height:48px;border-radius:14px}.app-dock .nav-btn svg{width:22px;height:22px}.app-dock .nav-label{display:none}.app-dock #nav:before{border-radius:14px}.dock-handle{width:19px;height:42px}.dock-help{width:29px;height:38px;margin-left:2px}.top-actions .icon-btn{width:31px;height:32px}.sidebar-toggle{width:31px}.is-original-bench .shell{gap:8px}}
+@media(max-width:360px){.app-dock .nav-btn{width:38px;flex-basis:38px}.app-dock #nav{gap:1px}.dock-help{width:27px}.dock-handle{width:17px}}
+@media(max-height:500px) and (min-width:541px){:root{--dock-clearance:68px}.app-dock.sidebar{height:54px;padding-block:4px;border-radius:20px}.app-dock .nav-btn{height:44px}.app-dock .nav-label{display:none}.app-dock .nav-btn svg{width:21px;height:21px}.topbar{height:46px;min-height:46px;margin-top:6px}.is-original-bench .shell{gap:6px}}
+@supports not (backdrop-filter:blur(1px)){.app-dock.sidebar{background:#edf3f8}.dark .app-dock.sidebar{background:#263a4e}}
+@media(prefers-reduced-motion:reduce){.app-dock *,.app-dock{transition:none!important;animation:none!important}}
+body.reduce-motion .app-dock *,body.reduce-motion .app-dock{transition:none!important;animation:none!important;transform:none}
+@media print{.app-dock.sidebar{display:none}body.is-original-bench{height:auto;overflow:visible}}

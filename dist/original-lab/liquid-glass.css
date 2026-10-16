@@ -18,3 +18,49 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline
 @supports not (backdrop-filter:blur(1px)){.glass,.shelf,.info,.chem-card,.app-card,.vessel-card,.info-card,.modal{background:var(--glass-strong)}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
 body.reduce-motion *,body.reduce-motion *:before,body.reduce-motion *:after{animation:none!important;transition:none!important}
+
+/* Fill the iframe: panels scroll independently and never set a minimum canvas height. */
+html,body{width:100%;height:100%;min-width:0;min-height:0;overflow:hidden}
+body{display:flex;flex-direction:column;height:100dvh}
+header{flex:none;flex-wrap:nowrap;min-width:0;gap:7px;padding:9px 12px;min-height:54px;z-index:50;background:linear-gradient(120deg,var(--glass-strong),var(--glass));border-bottom:1px solid var(--hairline)}
+header .brand{font-size:12px;letter-spacing:-.2px;font-weight:600;gap:7px;margin:0 8px 0 2px;min-width:0}
+.lab-status-dot{width:6px;height:6px;flex:none;border-radius:50%;background:#37a788;box-shadow:0 0 0 3px #37a78812}
+.lab-command-group{display:flex;align-items:center;gap:4px;min-width:0;overflow-x:auto;scrollbar-width:none;margin-left:auto;padding:1px 2px}
+.lab-command-group::-webkit-scrollbar{display:none}
+header .iconbtn{height:34px;width:34px;border-radius:11px;flex:none;background:transparent;border:1px solid transparent;box-shadow:none;color:var(--sub);font-size:16px}
+header .iconbtn:hover{background:var(--glass-strong);border-color:var(--glass-border);color:var(--text)}
+header .iconbtn.active,header .lab-panel-toggle[aria-expanded="true"]{background:var(--glass-strong);border-color:var(--glass-border);box-shadow:inset 0 1px 0 #ffffff70;color:var(--accent)}
+header #clearBenchBtn{margin-left:5px;border-left-color:var(--hairline)}
+.wrap{position:relative;display:flex;flex-direction:row;flex:1;width:100%;height:auto;min-height:0;overflow:hidden;padding:10px;gap:10px}
+.shelf,.info{height:auto;max-height:100%;min-height:0;margin:0;flex:none;padding:12px;border-radius:18px;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;box-shadow:0 6px 24px #42638508,inset 0 1px 0 #ffffff80}
+.shelf{width:240px;min-width:0}.info{width:280px;min-width:0}
+.shelf-tabs,.info-tabs{position:sticky;top:-12px;z-index:3;margin:0 0 12px;padding:4px;gap:3px;border-radius:12px;background:var(--glass-strong);border:1px solid var(--glass-border);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur)}
+.shelf-tab,.info-tab{box-shadow:none;border-color:transparent;font-size:11px;padding:8px 3px}
+.lab-library-controls{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.lab-library-controls .searchbox{flex:none;min-width:0;padding:9px 10px;border-radius:11px;background:var(--glass);border-color:var(--hairline)}
+.lab-library-controls .searchbox input{font-size:12px;min-width:0}
+.lab-library-controls .cat-chip-row{display:flex;flex-wrap:nowrap;max-height:none;overflow-x:auto;gap:4px;padding-bottom:4px;scrollbar-width:thin}
+.lab-library-controls .cat-chip-row button{flex:none;font-size:10px;padding:5px 8px;white-space:nowrap}
+.stage{flex:1;min-width:0;min-height:0;height:auto;padding:0;overflow:hidden;border-radius:18px}
+.bench-scroll{flex:1;min-height:0;min-width:0;width:100%;height:100%;border-radius:18px;overscroll-behavior:contain;background:radial-gradient(ellipse at 45% 25%,#ffffffc0,transparent 75%),repeating-linear-gradient(0deg,#7f9db00b 0 1px,transparent 1px 32px),repeating-linear-gradient(90deg,#7f9db00b 0 1px,transparent 1px 32px),linear-gradient(135deg,#eaf0f6,#e5efec)}
+.bench{width:100%;height:100%;min-width:100%;min-height:100%}
+.partner-bar{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);z-index:8;max-width:calc(100% - 28px);width:max-content;margin:0;padding:8px 12px;border-radius:14px;pointer-events:none;box-shadow:0 4px 16px #425a7710,inset 0 1px 0 #ffffffa0}
+.partner-avatar{display:none}.partner-text{font-size:10px;line-height:1.5;color:var(--sub)}
+.bench-hint{display:flex;flex-direction:column;align-items:center;gap:10px;max-width:280px;width:calc(100% - 40px);font-size:11px;line-height:1.6;color:var(--sub)}
+.bench-hint strong{display:block;font-size:18px;line-height:1.25;font-weight:500;letter-spacing:-.45px;color:var(--text)}
+.empty-bench-symbol{display:grid;place-items:center;width:48px;height:48px;border:1px solid var(--glass-border);background:var(--glass);border-radius:16px;box-shadow:inset 0 1px 0 white;font-size:28px;font-weight:300;color:var(--accent);margin-bottom:4px}
+.chem-grid-inner{gap:6px}.chem-card,.app-card{background:transparent!important;border-color:transparent!important;box-shadow:none!important;border-radius:13px;padding:10px 5px;backdrop-filter:none;-webkit-backdrop-filter:none}
+.chem-card:hover,.app-card:hover{background:var(--glass-strong)!important;border-color:var(--glass-border)!important}
+.chem-card .name{font-size:10px;font-weight:550}.chem-card .formula{font-size:9px}.chem-card .tag{font-size:6px;opacity:.7}
+.vessel-card{background:transparent!important;border-color:transparent!important;box-shadow:none!important;backdrop-filter:none;-webkit-backdrop-filter:none}
+.vessel.selected .vessel-card{border-color:#0a84ff35!important;background:#ffffff20!important;box-shadow:0 0 0 3px #0a84ff08!important}
+.vessel.selected .vessel-card:before{content:"";width:5px;height:5px;top:-5px;padding:0;background:var(--accent);border-radius:50%}
+.notes-actions{flex-wrap:wrap}.notes-actions .btn{font-size:10px;padding:8px 10px}.notes-hint{font-size:10px}
+.modal{max-width:calc(100vw - 24px);max-height:calc(100dvh - 24px);overflow:auto}
+.pour-panel,.pour-vessel-panel{max-width:calc(100vw - 20px);max-height:calc(100dvh - 20px);overflow:auto}
+:root.dark .bench-scroll{background:radial-gradient(ellipse at 45% 25%,#48637c20,transparent 75%),repeating-linear-gradient(0deg,#b3c9e008 0 1px,transparent 1px 32px),repeating-linear-gradient(90deg,#b3c9e008 0 1px,transparent 1px 32px),linear-gradient(145deg,#192d3c,#1d3339)}
+@media(min-width:1450px){.shelf{width:260px}.info{width:300px}.wrap{padding:12px;gap:12px}}
+@media(max-width:1050px){.shelf,.info{position:absolute;z-index:40;top:10px;bottom:10px;width:min(280px,calc(100% - 20px));max-height:calc(100% - 20px);background:var(--glass-strong);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);box-shadow:0 14px 40px #20384b28,inset 0 1px 0 #ffffffa0}.shelf{left:10px}.info{right:10px}.stage{width:100%;flex:1}.partner-bar{max-width:calc(100% - 24px)}}
+@media(max-width:540px){header{padding:7px 8px;gap:3px;min-height:48px}header .brand{display:none}header .iconbtn{height:32px;width:32px;border-radius:10px}.lab-command-group{gap:1px}.wrap{padding:7px;gap:0}.shelf,.info{top:7px;bottom:7px;max-height:calc(100% - 14px)}.shelf{left:7px}.info{right:7px}.bench-hint strong{font-size:16px}.partner-text{font-size:9px}.partner-bar{padding:6px 9px;bottom:8px}.bench-scroll,.stage{border-radius:14px}}
+@media(max-height:480px){header{min-height:42px;padding-block:4px}.wrap{padding:6px}.partner-bar{display:none}.bench-hint{gap:5px}.empty-bench-symbol{width:32px;height:32px;font-size:22px;border-radius:11px}}
+@supports not (backdrop-filter:blur(1px)){.shelf,.info,.partner-bar{background:#eff3f7}:root.dark .shelf,:root.dark .info,:root.dark .partner-bar{background:#273b4a}}

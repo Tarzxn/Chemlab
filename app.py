@@ -18,7 +18,7 @@ from auth import AccountStore, auth_request
 from original_api import original_request
 
 DIST = Path(__file__).resolve().parent / "dist"
-VERSION = "2.4.0"
+VERSION = "2.5.0"
 ACCOUNTS = AccountStore()
 TYPES = {".js": "text/javascript; charset=utf-8", ".css": "text/css; charset=utf-8", ".html": "text/html; charset=utf-8", ".svg": "image/svg+xml", ".json": "application/json; charset=utf-8"}
 SECURITY_HEADERS = [
