@@ -73,6 +73,6 @@ python -m unittest discover -s tests -p "test_*.py" -v
 npm test
 ```
 
-The 79 checks include the real WSGI entry point and account lifecycle, with temporary local storage and mocked Gist responses. They make no network requests. Gunicorn is a Unix server and was not launched on this Windows host. A deployment inside a Render account and live Gist persistence have not been tested from this session. Real-browser visual QA remains unverified because browser-preview access was previously declined; no workaround was attempted.
+The 108 checks include the real WSGI entry point and account lifecycle, with temporary local storage and mocked Gist responses. They make no network requests. Gunicorn is a Unix server and was not launched on this Windows host. A deployment inside a Render account and live Gist persistence have not been tested from this session. Real-browser visual QA remains unverified because browser-preview access was previously declined; no workaround was attempted.
 
 References: [Render web services](https://render.com/docs/web-services), [Blueprint specification](https://render.com/docs/blueprint-spec), [Python version selection](https://render.com/docs/python-version), [Gunicorn package](https://pypi.org/project/gunicorn/), [GitHub Gists API](https://docs.github.com/en/rest/gists/gists).

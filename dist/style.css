@@ -68,3 +68,35 @@ body.is-sandbox .page-heading{margin:22px 0}.is-sandbox .page-heading h1{font-si
 .dark .sandbox-corner>span{background:transparent;border:0}
 @media(hover:hover){.lab-vessel:not(.selected) .object-status,.lab-object .object-connection{opacity:0;transition:opacity .15s}.lab-object:is(:hover,:focus-visible) .object-status,.lab-object:is(:hover,:focus-visible) .object-connection{opacity:1}.sandbox-shelf .reagent .plus,.equipment-shelf-item>span:last-child{opacity:0}.sandbox-shelf .reagent:is(:hover,:focus-visible) .plus,.equipment-shelf-item:is(:hover,:focus-visible)>span:last-child{opacity:1}}
 @media(max-width:760px){.sandbox-shelf,.sandbox-inspector{border-top:1px solid var(--line);padding-top:6px}.sandbox-shelf .reagents{gap:0 18px}.sandbox-toolbar{padding:10px 0}.sandbox-toolbar h2{font-size:12px}.sandbox-inspector .panel-body{padding:12px 6px}}
+/* Direct manipulation: attachment hints and small, in-place apparatus controls. */
+.snap-point{position:absolute;z-index:10;width:28px;height:28px;border:2px dashed #329b8c;border-radius:50%;background:#e6fff370;transform:translate(-50%,-50%);pointer-events:none;box-shadow:0 0 0 5px #58b59f12}
+.snap-hint{position:absolute;bottom:65px;left:18px;max-width:calc(100% - 36px);padding:8px 12px;border-radius:20px;background:#edfdf4e8;color:#246f60;font-size:11px;pointer-events:none;border:1px solid #b4dfcb;z-index:5}
+.lab-object.snap-target>svg{filter:drop-shadow(0 0 8px #51a99b80)}
+.lab-object.pour-preview>svg{transform:rotate(25deg);transform-origin:70% 80%}
+.lab-object.selected .object-name{color:var(--accent)}
+.object-tools{position:absolute;z-index:12;display:flex;align-items:center;gap:3px;transform:translateX(-50%);padding:3px;border:1px solid #ffffffab;border-radius:12px;background:#ffffffd9;box-shadow:0 3px 12px #33527012;white-space:nowrap}
+.object-tools button{font-size:10px;min-width:29px;min-height:28px;padding:5px 7px;background:transparent;border-radius:8px;color:var(--ink)}
+.object-tools button:hover{background:var(--tint)}
+.bench-measures{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px;margin:12px 0}
+.bench-measures label{font-size:9px;line-height:1.7;color:var(--muted)}
+.bench-measures input{display:block;margin-top:4px;padding:7px 9px;font-size:12px;border-radius:8px;background:transparent}
+#measurement-controls{padding-bottom:16px;margin-bottom:12px;border-bottom:1px solid var(--line)}
+.connection-readout{font-size:11px;color:var(--green);margin-top:12px}
+.inline-panel{position:relative;max-width:850px;margin:0 0 18px;padding:12px 0;border:0;border-top:1px solid var(--line);background:transparent}
+.inline-panel .dialog-head{padding:4px 0 12px;border:0;gap:8px}
+.inline-panel .dialog-head h2{font-size:14px;line-height:1.5;letter-spacing:0}
+.inline-panel .dialog-head .icon-btn{width:25px;height:25px;background:transparent;border:0}
+.inline-panel .dialog-body{padding:0;font-size:12px;line-height:1.8}
+.inline-panel .dialog-body>p{margin-bottom:12px}
+.inline-panel .dialog-form{display:grid;gap:14px}
+.inline-panel .dialog-actions{padding:4px 0 0;margin:0;border:0;gap:7px}
+.inline-panel .btn{font-size:11px;padding:8px 10px}
+.inline-panel .field{font-size:11px;gap:5px}
+.inline-panel .field input,.inline-panel .field select{padding:8px;font-size:12px}
+.shell>.toast{position:static;left:auto;bottom:auto;max-width:none;transform:none;display:none;margin:12px 0 0;padding:9px 0;border:0;border-bottom:1px solid var(--line);border-radius:0;box-shadow:none;background:transparent;color:var(--ink);font-size:11px;opacity:1;transition:none}
+.shell>.toast.show{display:block;transform:none}
+.dark .object-tools{background:#273d50ed;border-color:#8fa6c32b}
+.dark .snap-hint{background:#23493eeb;border-color:#467a68;color:#b6e6d6}
+.dark .snap-point{background:#3a7c6250}
+@media(max-width:760px){.object-tools button{min-height:34px;min-width:34px}.snap-hint{font-size:10px}.bench-measures{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.bench-measures label{font-size:9px}}
+@media(max-width:540px){.bench-measures{grid-template-columns:1fr 1fr}}

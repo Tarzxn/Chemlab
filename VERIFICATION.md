@@ -1,8 +1,8 @@
 # Verification — Render edition
 
-The 2.2.1 interface update removes vessel selection cards and panel frames on the bench, uses a small selection underline, simplifies library rows, and flattens inspector readouts. Light/dark and responsive styles are included; real-browser visual QA remains unverified as described below.
+The 2.3.0 update adds geometric apparatus snapping and direct bottle dosing/pouring, keeps detail forms inline, and removes modal overlays. Frame-free objects and quiet side controls remain. Real-browser visual and native interaction QA remain unverified as described below.
 
-**79 checks pass: 49 JavaScript chemistry/app/sandbox checks and 30 Python authentication/WSGI/deployment checks.** The server suite invokes the real production entry point without network access and checks the health endpoint, correct module MIME types, cache revalidation, gzip, HEAD responses, missing files, path containment and Render port binding.
+**108 checks pass: 78 JavaScript chemistry/app/assembly/sandbox checks and 30 Python authentication/WSGI/deployment checks.** The server suite invokes the real production entry point without network access and checks the health endpoint, correct module MIME types, cache revalidation, gzip, HEAD responses, missing files, path containment and Render port binding.
 
 The chemistry and application tests run with Node's built-in test runner, with no installed dependencies.
 
@@ -21,7 +21,11 @@ The completed automated checks cover:
 - Offline bundle compilation with no external module imports.
 - Apparatus shelf opening, search and drag payloads; pointer capture starts only after a drag; keyboard placement retains focus; equipment drops over a vessel remain equipment placements.
 - Burette dosing uses the actual receiver inventory; mounted burettes move with stands; saved apparatus positions/connections survive restore; Clear bench preserves notes and leaves Undo usable.
-- Connected burner heating and liquid temperature bounds, paused stopwatches, gas-syringe readings, balance rendering, viewport fitting and zoom.
+- Connected burner heating and liquid temperature bounds, paused stopwatches, gas-syringe readings, balance rendering, viewport fitting and pointer-centred wheel zoom.
+- Geometric ports for clamps, receivers, flame heating, balances, inserted probes, gas tubing and filter funnels; compatible-target selection and world-bound rejection.
+- Parent/child assembly movement, nested assemblies, detachment, conflicting saved links, cycle rejection and restored attachment graphs.
+- Pointer release commits a connection; cancelled gestures restore the scene without pouring. On-bench controls do not invoke browser modal dialogs.
+- Reusable reagent bottles; direct measured doses and burette filling; conservative mixture pouring and filtration; inventory undo; unique vessel IDs after undoing Clear bench.
 - Sign-up, sign-in, session restoration and revocation, separate per-user notebooks, password confirmation, and explicit offline guest access.
 - Salted scrypt password hashing; hashed session storage; cookie flags; expiry and tampering; credential validation, rate limits and cross-origin rejection.
 - Gist failure handling and Chemlab-only update payloads with mocked responses; Render requires durable account configuration.

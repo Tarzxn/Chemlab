@@ -14,12 +14,12 @@ test('zoom preserves the world point under the viewport centre',()=>{const state
 
 async function withPointerAdapter(run){
  const original=globalThis.document,state={vessels:[makeVessel(1)],sandbox:newSandbox()};normaliseSandbox(state);
- const events={},captured=new Set(),calls={checkpoints:0,renders:0,saves:0,focus:0,additions:[],doses:[]};
+ const events={},captured=new Set(),calls={checkpoints:0,renders:0,saves:0,focus:0,additions:[],doses:[],drops:[]};
  const object={dataset:{kind:'vessel',object:'1'},style:{},closest(selector){return ['.lab-object','.lab-vessel'].includes(selector)?this:null;},focus(){calls.focus++;}};
  const view={addEventListener:(name,fn)=>events[name]=fn,classList:{add(){},remove(){}},setPointerCapture:id=>captured.add(id),hasPointerCapture:id=>captured.has(id),releasePointerCapture:id=>captured.delete(id),getBoundingClientRect:()=>({left:10,top:20})};
- const world={querySelectorAll:()=>[object]};
+ const world={style:{},querySelectorAll:()=>[object]};
  globalThis.document={querySelector:selector=>selector==='#sandbox-viewport'?view:selector==='#sandbox-world'?world:selector.startsWith('[data-kind=')?object:null};
- attachSandbox(state,{save:()=>calls.saves++,checkpoint:()=>calls.checkpoints++,render:()=>calls.renders++,onDose:id=>calls.doses.push(id),onAddReagent:(...args)=>calls.additions.push(args),onSelect(){}});
+ attachSandbox(state,{save:()=>calls.saves++,checkpoint:()=>calls.checkpoints++,render:()=>calls.renders++,onDose:id=>calls.doses.push(id),onAddReagent:(...args)=>calls.additions.push(args),onObjectDrop:snap=>calls.drops.push(snap),onSelect(){}});
  try{await run({state,events,captured,calls,object});}finally{if(original===undefined)delete globalThis.document;else globalThis.document=original;}
 }
 test('tap preserves the object click target while an actual drag captures the pointer',async()=>withPointerAdapter(async({state,events,captured,calls,object})=>{
@@ -32,3 +32,6 @@ test('dropping apparatus over a vessel places equipment while a reagent doses th
 test('arrow placement retains focus after rendering so repeated key presses work',async()=>withPointerAdapter(({state,events,calls,object})=>{
  events.keydown({target:object,key:'ArrowRight',shiftKey:true,preventDefault(){}});assert.equal(state.vessels[0].x,300);assert.equal(calls.focus,1);assert.equal(calls.renders,1);
 }));
+test('releasing a dragged vessel at the burner port commits an actual heat connection',async()=>withPointerAdapter(async({state,events,object})=>{state.sandbox.items.push({id:1,kind:'burner',x:320,y:478,on:false});const down={button:0,target:object,clientX:100,clientY:100,pointerId:7};events.pointerdown(down);events.pointermove({...down,clientX:124,clientY:164});events.pointerup({...down,clientX:124,clientY:164});assert.equal(state.sandbox.items[0].targetId,1);assert.equal(state.sandbox.attachments[0].role,'heat');await new Promise(resolve=>setTimeout(resolve,5));}));
+test('cancelled dragging restores the scene and never pours a mixture',async()=>withPointerAdapter(async({state,events,calls,object})=>{dose(state.vessels[0],chemicals.find(c=>c.id==='water'),10,.1,elements);state.vessels.push({...makeVessel(2),x:500,y:400});const down={button:0,target:object,clientX:100,clientY:100,pointerId:7};events.pointerdown(down);events.pointermove({...down,clientX:236,clientY:192});events.pointercancel({...down,type:'pointercancel',clientX:236,clientY:192});assert.equal(calls.drops.length,0);assert.equal(state.vessels[0].x,260);assert.equal(state.vessels[0].volume,10);await new Promise(resolve=>setTimeout(resolve,5));}));
+test('wheel zoom keeps the world point under the pointer fixed',async()=>withPointerAdapter(({state,events,calls})=>{const x=(240-state.sandbox.panX)/state.sandbox.zoom,y=(220-state.sandbox.panY)/state.sandbox.zoom;events.wheel({clientX:250,clientY:240,deltaY:-120,preventDefault(){}});assert.ok(state.sandbox.zoom>.8);assert.ok(Math.abs((240-state.sandbox.panX)/state.sandbox.zoom-x)<1e-8);assert.ok(Math.abs((220-state.sandbox.panY)/state.sandbox.zoom-y)<1e-8);assert.equal(calls.saves,1);}));

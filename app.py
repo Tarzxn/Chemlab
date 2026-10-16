@@ -17,7 +17,7 @@ from wsgiref.simple_server import WSGIServer, make_server
 from auth import AccountStore, auth_request
 
 DIST = Path(__file__).resolve().parent / "dist"
-VERSION = "2.2.1"
+VERSION = "2.3.0"
 ACCOUNTS = AccountStore()
 TYPES = {".js": "text/javascript; charset=utf-8", ".css": "text/css; charset=utf-8", ".html": "text/html; charset=utf-8", ".svg": "image/svg+xml", ".json": "application/json; charset=utf-8"}
 SECURITY_HEADERS = [
