@@ -1,5 +1,7 @@
 # Verification — Render edition
 
+The 2.2.1 interface update removes vessel selection cards and panel frames on the bench, uses a small selection underline, simplifies library rows, and flattens inspector readouts. Light/dark and responsive styles are included; real-browser visual QA remains unverified as described below.
+
 **79 checks pass: 49 JavaScript chemistry/app/sandbox checks and 30 Python authentication/WSGI/deployment checks.** The server suite invokes the real production entry point without network access and checks the health endpoint, correct module MIME types, cache revalidation, gzip, HEAD responses, missing files, path containment and Render port binding.
 
 The chemistry and application tests run with Node's built-in test runner, with no installed dependencies.

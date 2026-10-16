@@ -1,6 +1,6 @@
-# Chemlab Studio 2.2 — Render edition
+# Chemlab Studio 2.2.1 — Render edition
 
-**Deploying to Render? Start with [RENDER.md](RENDER.md).** This edition adds RevisionCore-style sign-up and login with **separate Chemlab accounts**, plus a freely arranged sandbox bench. It retains the practicals, revision, calculations and translucent interface from the Render rebuild.
+**Deploying to Render? Start with [RENDER.md](RENDER.md).** This edition adds RevisionCore-style sign-up and login with **separate Chemlab accounts**, plus a freely arranged sandbox bench. The bench now has frame-free objects, a compact selection underline, a simpler library and unboxed inspector readouts. It retains the practicals, revision, calculations and translucent interface from the Render rebuild.
 
 A substantial rebuild of the supplied Chemlab project for Edexcel International GCSE Chemistry, linear **4CH1**, with an Apple-inspired translucent interface. Independent educational software; not affiliated with Apple or Pearson.
 

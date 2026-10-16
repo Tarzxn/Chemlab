@@ -4,7 +4,7 @@ This package is prepared for a **Python Web Service**, matching the original Che
 
 ## Replace an existing Chemlab service
 
-1. Extract the ZIP. Upload **the contents of `Chemlab-Render/`** to your Git repository's root, replacing the previous app files. `app.py`, `requirements.txt`, `gunicorn.conf.py`, `render.yaml` and the `dist/` folder must be together at that root.
+1. Extract the ZIP. It contains the app files directly, without an extra enclosing project folder. Upload those files to your Git repository's root, replacing the previous app files. `app.py`, `requirements.txt`, `gunicorn.conf.py`, `render.yaml` and the `dist/` folder must be together at that root.
 2. In your existing Render service, set:
 
 | Setting | Value |
